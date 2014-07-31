@@ -12,12 +12,19 @@ Given one number. Please find out the min number which the product of all indivi
 
 ## Given number --> Min number
 Please print the answers like below:
+
 (1) 18 --> 29
+
 (2) 42 --> 67
+
 (3) 100 --> 455
+
 (4) 51 --> -1
+
 (5) 1 --> 10
+
 (6) 105 --> 357
+
 (7) 126 --> 297
 
 
