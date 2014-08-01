@@ -26,6 +26,6 @@ Please print the answers like below:
 
 (6) 105 --> 357
 
-(7) 126 --> 297
+(7) 126 --> 279
 
 
