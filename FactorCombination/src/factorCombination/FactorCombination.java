@@ -133,6 +133,7 @@ public class FactorCombination {
 				
 			} else {
 				
+				// Only retain the subFactorBucket which has the least depth
 				count = this.finalSubFactorBuckets.get(count-1).depth;
 				
 				if (count > sfb.depth) {
