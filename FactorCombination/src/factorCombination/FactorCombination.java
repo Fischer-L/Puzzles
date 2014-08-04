@@ -101,8 +101,7 @@ public class FactorCombination {
 			return new SubFactorBucket(countOf2, countOf3, this);			
 		}
 	}
-	
-	
+		
 	private static class FinalSubFactorBucketHandle {
 		
 		private ArrayList<SubFactorBucket> finalSubFactorBuckets = new ArrayList<SubFactorBucket>();
@@ -142,47 +141,7 @@ public class FactorCombination {
 			return this.finalSubFactorBuckets.size();
 		}
 		
-		public ArrayList<SubFactorBucket> getFinalBuckets() {
-						
-			SubFactorBucket[] b = new SubFactorBucket[3];
-			ArrayList<SubFactorBucket> buckets = new ArrayList<SubFactorBucket>();	
-			ArrayList<SubFactorBucket> finalbuckets = new ArrayList<SubFactorBucket>();		
-			Iterator<SubFactorBucket> itr = this.finalSubFactorBuckets.iterator();
-			
-			// Rearrange each SubFactorBucket chain so that SubFactorBucket objs are arranged by its product value in the ascending order.
-			while (itr.hasNext()) {			
-				
-				buckets.clear();
-				
-				b[0] = itr.next();			
-				
-				while (b[0] != null) {
-					buckets.add(b[0]);
-					b[0] = b[0].parentBucket;				
-				}
-				
-				Collections.sort(buckets, new SubFactorBucketComparator());
-				
-				buckets.get(0).parentBucket = null;
-				for (int i = 1; i < buckets.size(); i++) {					
-					b[0] = buckets.get(i-1);				
-					b[0].depth = i-1;
-					
-					b[1] = buckets.get(i);
-					b[1].depth = i;
-					
-					b[1].parentBucket = b[0];
-				}
-				
-				finalbuckets.add(buckets.get(buckets.size()-1));
-			}			
-			
-			this.finalSubFactorBuckets = finalbuckets;
-			
-			return this.finalSubFactorBuckets;
-		}
-	
-		private ArrayList<Integer> getMinSubFactorCombination() {
+		public ArrayList<Integer> getMinSubFactorCombination() {
 			
 			int num,
 				minNum = 0;
@@ -195,34 +154,46 @@ public class FactorCombination {
 			
 			ArrayList<Integer> comb = new ArrayList<Integer>();
 			
-			ArrayList<SubFactorBucket> finalBuckets = this.getFinalBuckets();		
+			ArrayList<SubFactorBucket> finalBuckets = new ArrayList<SubFactorBucket>();
 			
-			itr0 = finalBuckets.iterator();
+			itr0 = this.finalSubFactorBuckets.iterator();	
 			
-			if (itr0.hasNext()) {
+			while(itr0.hasNext()) {
 				
-				sb = new StringBuilder();
+				finalBuckets.clear();
 				
-				b[1] = b[0] = itr0.next();
+				b[0] = itr0.next();
 				
-				while (b[1] != null && b[1].depth > 0) {				
-					sb.append(b[1].product);				
-					b[1] = b[1].parentBucket;
+				while(b[0] != null && b[0].depth > 0) {
+					finalBuckets.add(b[0]);
+					b[0] = b[0].parentBucket;
 				}
 				
-				if (sb.length() > 0) {
+				if (finalBuckets.size() > 0) {
 					
-					num = Integer.parseInt(sb.reverse().toString());
+					Collections.sort(finalBuckets, new SubFactorBucketComparator());
 					
-					if (num < minNum || minNum <= 0) {
-						
-						minNum = num;
-						
-						while (b[0] != null && b[0].depth > 0) {							
-							comb.add(b[0].product);
-							b[0] = b[0].parentBucket;
-						}
+					sb = new StringBuilder();
+					
+					for (SubFactorBucket sub : finalBuckets) {
+						sb.append(sub.product);
 					}
+					
+					if (sb.length() > 0) {
+						
+						num = Integer.parseInt(sb.toString());
+						
+						if (num < minNum || minNum <= 0) {
+							
+							minNum = num;
+							
+							comb.clear();
+							
+							for (SubFactorBucket sub : finalBuckets) {
+								comb.add(sub.product);
+							}
+						}
+					}					
 				}
 			}
 			
@@ -257,8 +228,7 @@ public class FactorCombination {
 		
 		return (remain == 1) ? fb : null;
 	}
-	
-	
+		
 	private static void computeMinSubFactorCombination(int countOf2, int countOf3, SubFactorBucket parentBucket, FinalSubFactorBucketHandle sfbHandle) {
 		
 		int newCountOf2 = countOf2,
