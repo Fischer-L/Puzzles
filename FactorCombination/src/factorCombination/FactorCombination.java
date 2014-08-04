@@ -85,21 +85,12 @@ public class FactorCombination {
 		public SubFactorBucket() {			
 		}
 		
-		public SubFactorBucket(int countOf2, int countOf3, SubFactorBucket parentBucket) {
-			
-			this.countOf2 = countOf2;
-			this.countOf3 = countOf3;
+		public SubFactorBucket(int countOf2, int countOf3, SubFactorBucket parentBucket) {			
+			this.countOf2 = Math.abs(countOf2);
+			this.countOf3 = Math.abs(countOf3);
 			this.parentBucket = parentBucket;
-			this.depth = parentBucket.depth + 1;
-			
-			if (countOf2 > 0 && countOf3 <= 0) {
-				this.product = (int) Math.pow((double) 2, (double) countOf2);
-			} else if (countOf2 <= 0 && countOf3 > 0) {
-				this.product = (int) Math.pow((double) 3, (double) countOf3);
-			} else if (countOf2 > 0 && countOf3 > 0) {
-				this.product = (int) Math.pow((double) 2, (double) countOf2) * (int) Math.pow((double) 3, (double) countOf3);
-			}
-			
+			this.depth = parentBucket.depth + 1;			
+			this.product = (int) Math.pow((double) 2, (double) this.countOf2) * (int) Math.pow((double) 3, (double) this.countOf3);
 		}
 		
 		public int depth = 0;		
