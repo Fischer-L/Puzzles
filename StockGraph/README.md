@@ -13,12 +13,12 @@ Like the below sample graphs, your stock graph must have X and Y axis. The lengt
 Sample 1:
 
 "RCRFCRFFCCRRC"
-
+```
 |             _
 |  _/\_/\    /
 | /      \__/
 +---------------
-
+```
 
 Sample 2:
 
