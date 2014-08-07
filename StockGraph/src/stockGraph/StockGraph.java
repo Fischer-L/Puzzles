@@ -14,7 +14,7 @@ public class StockGraph {
 	public static void main(String[] args) {
 				
 		String[] inputs = {
-			"CFF"
+			"RCRFCRFFCCRRC", "CFF", "FFFCCRRCCCRR"
 		};
 		
 		ArrayList<GraphRowY> yRows;
@@ -25,12 +25,17 @@ public class StockGraph {
 			points = collectStockPoints(in);			
 			yRows = collectYRows(points);
 			
+			System.out.println(in);
+			
 			if (yRows.size() > 0) {				
 				for (GraphRowY row : yRows) {
 					row.print();
 				}
-				(new GraphRowX(points.size()+1)).print();
+				(new GraphRowX(points.size())).print();
 			}
+			
+			System.out.println();
+			System.out.println();
 		}
 		
 		try {
@@ -99,6 +104,7 @@ public class StockGraph {
 					whitespace = p.xPos - this.currentXPos - 1; // The whitespace number
 					for (i = 0; i < whitespace; i++) {
 						sb.append(" ");
+						this.currentXPos++;
 					}
 					
 					sb.append(p.graph);
@@ -160,10 +166,6 @@ public class StockGraph {
 					
 					yLV = currentType.equals(StockPoint.TYPE_RISE) ? yLV + 1 : currentType.equals(StockPoint.TYPE_FALL) ? yLV : yLV + 1;
 					
-				} else if (preType.equals(StockPoint.TYPE_FALL)) {
-					
-					yLV = currentType.equals(StockPoint.TYPE_RISE) ? yLV : currentType.equals(StockPoint.TYPE_FALL) ? yLV - 1 : yLV;
-					
 				} else {
 					
 					yLV = currentType.equals(StockPoint.TYPE_RISE) ? yLV : currentType.equals(StockPoint.TYPE_FALL) ? yLV - 1 : yLV;			
@@ -211,9 +213,12 @@ public class StockGraph {
 					
 					buf.add(points.get(i));					
 					
+					if (i == 0) {
+						i--;
+					}
 				}
 				
-				if (lv != points.get(i).yPos || i == 0) {
+				if (i < 0 || lv != points.get(i).yPos) {
 					
 					Collections.sort(buf, new Comparator<StockPoint>() {
 						@Override
@@ -232,7 +237,9 @@ public class StockGraph {
 					
 					buf.clear();
 					
-					lv = points.get(i).yPos;
+					if (i >= 0) {
+						lv = points.get(i).yPos;
+					}
 					i++;
 				}
 			}			
