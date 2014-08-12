@@ -61,19 +61,19 @@ public class MinimumScalarProduct {
 		}
 	}
 	
-	private static class AscendingOrder implements Comparator<Integer> {
+	private static Comparator<Integer> ascendingOrder = new Comparator<Integer>() {
 		@Override
 		public int compare(Integer arg0, Integer arg1) {
 			return arg0 - arg1;
 		}		
-	}
+	};
 	
-	private static class DescendingOrder implements Comparator<Integer> {
+	private static Comparator<Integer> descendingOrder = new Comparator<Integer>() {
 		@Override
 		public int compare(Integer arg0, Integer arg1) {
 			return arg1 - arg0;
 		}		
-	}
+	};
 	
 	private static class VectorsBucket {
 		
@@ -83,8 +83,8 @@ public class MinimumScalarProduct {
 				this.v1 = v1;
 				this.v2 = v2;
 				
-				Collections.sort(this.v1, new AscendingOrder());
-				Collections.sort(this.v2, new DescendingOrder());
+				Collections.sort(this.v1, ascendingOrder);
+				Collections.sort(this.v2, descendingOrder);
 				
 				if (this.minScalarProduct == null) {
 					this.minScalarProduct = (long) 0;
@@ -118,19 +118,13 @@ public class MinimumScalarProduct {
 	
 	private static void readPuzzleFile(String path, ArrayList<VectorsBucket> buckets) {
 				
-		BufferedReader br;
-		
-		try {
-			br = FileUtil.bufferFileReader(FileUtil.openFile(path));			
-		} catch (IOException e) {
-			e.printStackTrace();
-			return;
-		}
-				
 		String line;
+		BufferedReader br;
 		ArrayList<Integer> v1, v2;
 		
 		try {
+			
+			br = FileUtil.bufferFileReader(FileUtil.openFile(path));	
 			
 			line = br.readLine(); // The 1st line is useless
 			
