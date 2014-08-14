@@ -17,7 +17,7 @@ public class StoreCredit {
 	public static void main(String[] args) {
 		
 		String[] paths = {
-			"./A-small-practice"
+			"./A-small-practice", "./A-large-practice"
 		};
 		
 		Puzzle[] puzzles;
@@ -146,28 +146,28 @@ public class StoreCredit {
 	}
 	
 	private static class DividingMethod {
-		
+				
 		public DividingMethod(Puzzle[] puzzles) {
 			
 			this.answers = new Answer[puzzles.length];
 			
-			for (int i = 0; i < puzzles.length; i++) {				
+			for (int i = 0; i < puzzles.length; i++) {
 				this.answers[i] = this.buyGoods(puzzles[i]);				
-			}			
+			}	
+			
 		}
 		
 		public Answer[] answers;
 		
 		private Answer buyGoods(Puzzle p) {
 			
-			int i, j;
-			
+			int i, j;			
 			
 			String[] goods = p.goods.split(" ");
 			int credit = Integer.parseInt(p.credit);
 			
-			int price,
-				halfCredit = credit / 2;
+			float price,
+				  halfCredit = (float) credit / 2;
 			
 			ArrayList<Goods> lesses = new ArrayList<Goods>();
 			ArrayList<Goods> equals = new ArrayList<Goods>();
@@ -175,22 +175,24 @@ public class StoreCredit {
 			
 			for (i = goods.length-1; i >= 0; i--) {
 				
-				price = Integer.parseInt(goods[i]);
+				price = Float.parseFloat(goods[i]);
 				
-				if (price < halfCredit) {
-					
-					lesses.add(new Goods(price, i+1));
-					
-				} else if (price > halfCredit) {
-					
-					biggers.add(new Goods(price, i+1));
-					
-				} else {
-					
-					equals.add(new Goods(price, i+1));
-					
+				if (price < credit) {
+					if (price < halfCredit) {
+						
+						lesses.add(new Goods((int) price, i+1));
+						
+					} else if (price > halfCredit) {
+						
+						biggers.add(new Goods((int) price, i+1));
+						
+					} else {
+						
+						equals.add(new Goods((int) price, i+1));
+						
+					}
 				}
-			}			
+			}
 			Collections.sort(lesses, sortGoods);
 			Collections.sort(equals, sortGoods);
 			Collections.sort(biggers, sortGoods);
