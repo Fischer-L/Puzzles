@@ -22,14 +22,17 @@ public class StoreCredit {
 		
 		Puzzle[] puzzles;
 		DividingMethod dividingMethod;
+		EliminatingMethod eliminatingMethod;
 		
 		for (String path: paths) {
 			
 			puzzles = readPuzzlesFile(path + ".in");
 			
-			dividingMethod = new DividingMethod(puzzles);
-			
+			dividingMethod = new DividingMethod(puzzles);			
 			printAns(dividingMethod.answers, path + "-dividingMethod.out");
+			
+			eliminatingMethod = new EliminatingMethod(puzzles);			
+			printAns(eliminatingMethod.answers, path + "-eliminatingMethod.out");
 		}
 	}
 	
@@ -229,6 +232,75 @@ public class StoreCredit {
 			}
 			
 			return ans;
+		}
+	}
+
+	private static class EliminatingMethod {
+		
+		public EliminatingMethod(Puzzle[] puzzles) {
+			
+			this.answers = new Answer[puzzles.length];
+			
+			for (int i = 0; i < puzzles.length; i++) {
+				this.answers[i] = this.buyGoods(puzzles[i]);				
+			}	
+		}
+		
+		public Answer[] answers;
+		
+		private Answer buyGoods(Puzzle p) {
+						
+			int i,
+				j,
+				price,
+				credit = Integer.parseInt(p.credit);
+
+			String[] prices = p.goods.split(" ");
+			
+			ArrayList<Goods> goods = new ArrayList<Goods>();
+			
+			
+			for (i = prices.length - 1; i >= 0; i--) {
+				
+				price = Integer.parseInt(prices[i]);
+				
+				if (price < credit) {
+					goods.add(new Goods(price, i+1));
+				}				
+			}
+			Collections.sort(goods, sortGoods);
+			
+
+			int sum, pos1, pos2;
+			
+			for (i = 0; i >= 0 && i < goods.size(); i++) {
+				
+				price = goods.get(i).price;
+				pos1 = goods.get(i).originalPos;
+				
+				for (j = goods.size() - 1; j > i; j--) {
+					
+					sum = price + goods.get(j).price;
+					pos2 = goods.get(j).originalPos;
+					
+					if (sum > credit) {
+					
+						goods.remove(j);
+						
+					} else if (sum < credit) {
+						
+						goods.remove(i);
+						i--;
+						break;
+						
+					} else {
+						
+						return new Answer(pos1, pos2);						
+					}
+				}				
+			}
+			
+			return null;
 		}
 	}
 }
