@@ -16,12 +16,15 @@ For each test case, output one line containing "Case #x: y", where x is the test
 Limits
 
 1 ≤ T ≤ 100.
+
 1 ≤ Xi, Yi ≤ N
+
 Each test case will form a valid connected tree.
 
 Small dataset
 
 2 ≤ N ≤ 15.
+
 Large dataset
 
 2 ≤ N ≤ 1000.
