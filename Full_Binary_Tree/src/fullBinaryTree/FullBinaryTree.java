@@ -20,7 +20,7 @@ public class FullBinaryTree {
 	public static void main(String[] args) {
 		
 		String[] path = {
-			"./B-small-practice"//, "./B-large-practice"
+			"./B-small-practice", "./B-large-practice"
 		};
 		
 		int i;
@@ -95,9 +95,7 @@ public class FullBinaryTree {
 		
 		public Integer value = -1;
 		
-		public NodeMap children = new NodeMap();
-		
-		public int maxDesNum = 0;
+		public NodeMap children = new NodeMap();		
 	}
 	
 	private static String[][] readPuzzleFile(String path) {
@@ -153,7 +151,7 @@ public class FullBinaryTree {
 			BufferedWriter bw = FileUtil.bufferFileWriter(FileUtil.openFile(path));
 			
 			for (int i = 0; i < ans.length; i++) {
-				bw.write(String.format("Case #%d: $d", i, ans[i]));
+				bw.write(String.format("Case #%d: %d", i+1, ans[i]));
 				bw.newLine();
 			}
 			
@@ -199,72 +197,62 @@ public class FullBinaryTree {
 	
 	private static int trimBinaryTree(NodeMap nodes) {
 		
-		ArrayList<Node> roots = new ArrayList<Node>();
-		
 		Node n;
-		
-		while ((n = nodes.next()) != null) {
-			if (n.children.size() == 2) {
-				roots.add(n);
-			}
-		}		
 		
 		int maxNodeCounts = Integer.MIN_VALUE;
 		
-		for (int i = roots.size()-1; i >= 0; i++) {
-			n = roots.get(i);
-			maxNodeCounts = Math.max(maxNodeCounts, calNodeCounts(n, n));		
+		nodes.rewind();
+		while ((n = nodes.next()) != null) {
+			maxNodeCounts = Math.max(maxNodeCounts, calNodeCounts(n, n));
 		}
 		
 		return nodes.size() - maxNodeCounts;
 	}
 
-	private static int calNodeCounts(Node root, Node rootParent) {
+	private static int calNodeCounts(Node root, Node rootParent) {	
 		
-		if (root.maxDesNum == 0) {
+		Node child;
 		
-			Node child;
-			
-			int childrenNum = root.children.size();		
-			if (root.children.get(rootParent.value) != null) { // Deduct the root's parent
-				childrenNum--;
-			}
-			
-			if (childrenNum == 2) {
-				
-				root.children.rewind();
-				
-				while ((child = root.children.next()) != null) {					
-					if (child != rootParent) {
-						root.maxDesNum += calNodeCounts(child, root);
-					}
-				}			
-				
-				
-			} else if (childrenNum >= 3) {
-				
-				ArrayList<Integer> counts = new ArrayList<Integer>();
-				
-				while ((child = root.children.next()) != null) {					
-					if (child != rootParent) {
-						counts.add(calNodeCounts(child, root));
-					}
-				}	
-				
-				Collections.sort(counts, new Comparator<Integer>() {
-					@Override
-					public int compare(Integer o1, Integer o2) {
-						return o2 - o1;
-					}					
-				});
-				
-				root.maxDesNum += counts.get(0) + counts.get(1);
-			}
-			
-			root.maxDesNum += 1;
+		int maxDesNum = 1;
+		
+		int childrenNum = root.children.size();		
+		if (root.children.get(rootParent.value) != null) { // Deduct the root's parent
+			childrenNum--;
 		}
 		
-		return root.maxDesNum;
+		if (childrenNum == 2) {
+			
+			root.children.rewind();
+			
+			while ((child = root.children.next()) != null) {					
+				if (child != rootParent) {
+					maxDesNum += calNodeCounts(child, root);
+				}
+			}
+			
+		} else if (childrenNum >= 3) {
+			
+			ArrayList<Integer> counts = new ArrayList<Integer>();
+			
+			root.children.rewind();
+			
+			while ((child = root.children.next()) != null) {					
+				if (child != rootParent) {
+					counts.add(calNodeCounts(child, root));
+				}
+			}
+			
+			Collections.sort(counts, new Comparator<Integer>() {
+				@Override
+				public int compare(Integer o1, Integer o2) {
+					return o2 - o1;
+				}					
+			});
+			
+			maxDesNum += counts.get(0) + counts.get(1);
+		}
+				
+		return maxDesNum;
 	}	
 	
 }
