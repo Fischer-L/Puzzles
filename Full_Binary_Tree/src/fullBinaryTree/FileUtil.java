@@ -1,5 +1,4 @@
 package fullBinaryTree;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,9 +13,10 @@ import java.io.UnsupportedEncodingException;
 /**
  * A utility class handling file 
  * 
+ * @author Fischer_Liu
  *
  */
-public class FileUtil {	
+public class FileUtil {		
 
 	/**
 	 * Open(if not existing, then create) one file
@@ -40,8 +40,12 @@ public class FileUtil {
 		File f = new File(dstPath);
 		if (!f.exists()) {
 			
-			if (!f.getParentFile().mkdirs()) {
-				throw new IOException("Fail to make the dirs for the file path: " + dstPath + "!");
+			File fp = f.getParentFile();
+			
+			if (!fp.exists()) {
+				if (!fp.mkdirs()) {
+					throw new IOException("Fail to make the dirs for the file path: " + dstPath + "!");
+				}
 			}
 			
 			f.createNewFile();
@@ -76,7 +80,7 @@ public class FileUtil {
 	public static File openFile(String dstPath) throws IOException {
 		return FileUtil.openFile(dstPath, null, null, null, null);
 	}
-	
+
 	/**
 	 * Buffer the File object for writing
 	 * 
@@ -200,5 +204,5 @@ public class FileUtil {
 			throw new IOException(path + " -> No such file or dir to delete!");
 		}
 	}
-
+			
 }
