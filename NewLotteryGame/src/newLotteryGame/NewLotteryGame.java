@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
 
 public class NewLotteryGame {
 
@@ -23,37 +22,18 @@ public class NewLotteryGame {
 		long[] ans;
 		
 		Puzzle[] ps;
-		Date d;
+		
 		for (String f : path) {
 			
 			ps = readPuzzleFile(f + ".in");
 			
 			ans = new long[ps.length];
 			
-			d = new Date();
 			for (i = 0; i < ps.length; i++) {
-				ans[i] = calLottery(ps[i], false);
+				ans[i] = calLottery(ps[i]);
 			}
-			System.out.print(f + " by method I: ");
-			System.out.println((new Date()).getTime() - d.getTime());
 			
 			printAns(ans, f + ".out");
-		}
-				
-		
-		for (String f : path) {
-			
-			ps = readPuzzleFile(f + ".in");
-			
-			ans = new long[ps.length];			
-			d = new Date();
-			for (i = 0; i < ps.length; i++) {
-				ans[i] = calLottery(ps[i], true);
-			}
-			System.out.print(f + "Method II: ");
-			System.out.println((new Date()).getTime() - d.getTime());
-			
-			//printAns(ans, f + ".out");
 		}
 	}
 	
@@ -127,23 +107,7 @@ public class NewLotteryGame {
 		}
 	}
 	
-	private static long calLottery(Puzzle p, boolean debug) {
-		
-		if (debug) {
-			long i, j ,k;
-			
-			for (i = 0, k = 0; i < p.A; i++) {
-				
-				for (j = 0; j < p.B; j++) {
-					
-					if ((i & j) < p.K) {
-						k += 1;
-					}			
-				}
-			}
-			
-			return k;
-		}
+	private static long calLottery(Puzzle p) {
 		
 		long pairNum = 0,
 			 mA = (p.A < p.K) ? p.A : p.K,
