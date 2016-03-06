@@ -1,52 +1,74 @@
-from array import array
+import random
 
-class PlatePuttingError(Exception):
-	def __init__(self, tower_tag, top_most, plate_put):
-		self.msg = str.format("Cannot put the bigger plate {0} over the top most plate {1} of the tower {2}", plate_put, top_most, tower_tag)
+class Puzzle_List():
+	def __init__(self, ans_k, puzzle_list):
+		self.ans_k = ans_k
+		self.puzzle_list = puzzle_list
 
-	def __str__(self):
-		return self.msg	
+def mk_list(expected_sum):
+	n = 0
+	s = expected_sum
+	l = []
+	r = random.Random()
+	r.seed(hash(random.random()))
 
-class Tower:
-	"""This is tower for placing plates"""
+	while s > 0:
+		n = r.randint(1, s)
+		s = s - n
+		l.append(n)
 
-	def __init__(self, tag, plate_nums):
-		self.tag = tag
-		self._tower = array("i")
-		for i in range(plate_nums):
-			self._tower.append(i)
-		self._tower.reverse()
+	return l
 
-	def take(self):
-		if len(self._tower) > 0:
-			return self._tower.pop()
-		else:
-			return
+def mk_puzzle(expected_sum, opt_equal = "equal"):
+	la = mk_list(expected_sum)
+	lb = mk_list(expected_sum)
 
-	# plate is Int
-	def put(self, plate):
-		top_most = self._tower[len(self._tower) - 1]
-		if top_most >= 0 and top_most <= plate:
-			raise PlatePuttingError(self.tag, top_most, plate)
-		self._tower.append(plate)
+	la[0:0] = lb
+	k = len(lb) - 1
+	if opt_equal == "unequal":
+		k = -1
+		del la[0]
+	
+	return Puzzle_List(k, la)
 
-	def sizes(self):
-		return len(self._tower)
-
-	def printout(self):
-		print str.format("The tower of {0}:", self.tag)
-		sizes = self.sizes() or 0
-		if sizes:
-			sizes = range(sizes)
-			sizes.reverse()
-			for i in sizes:
-				print " ", self._tower[i]
+def assert_ans_k(expected_k, puzzle_list):
+	if expected_k == puzzle_list.ans_k:
+		print "Find k =", expected_k
+	else:
+		print "Wrong k = ", expected_k, ". The right k =", puzzle_list.ans_k
 
 if __name__ == "__main__":
-	start_tower = Tower("Start Tower", 10)
-	mid_tower = Tower("Middle Tower", 0)
-	dest_tower = Tower("Destination Tower", 0)
-	start_tower.put(22)
-	start_tower.printout()
-	mid_tower.printout()
-	dest_tower.printout()
+	puzzles = []
+	puzzles.append(mk_puzzle(99))
+	puzzles.append(mk_puzzle(789))
+	puzzles.append(mk_puzzle(1983))
+	puzzles.append(mk_puzzle(6228806))
+	puzzles.append(mk_puzzle(99, "unequal"))
+	puzzles.append(mk_puzzle(789, "unequal"))
+	puzzles.append(mk_puzzle(1983, "unequal"))
+	puzzles.append(mk_puzzle(6228806, "unequal"))
+
+	for p in puzzles:
+		ls = p.puzzle_list
+		k = -1
+		i = 0
+		j = len(ls) - 1
+		sum_a = ls[i]
+		sum_b = ls[j]
+
+		while j - i > 1:
+			if sum_a > sum_b:
+				j = j - 1
+				sum_b += ls[j]
+			elif sum_a < sum_b:
+				i = i + 1
+				sum_a += ls[i]
+			else:
+				if j - i > 1:
+					i = i + 1
+					sum_a += ls[i]
+
+		if sum_a == sum_b:
+			k = i
+
+		assert_ans_k(k, p)
