@@ -2,7 +2,7 @@ import random
 
 class Puzzle_List():
 	def __init__(self, ans_k, puzzle_list):
-		self.ans_k = ans_k
+		self.ans_k = ans_k # -1 => unequal
 		self.puzzle_list = puzzle_list
 
 def mk_list(expected_sum):
@@ -28,7 +28,7 @@ def mk_puzzle(expected_sum, opt_equal = "equal"):
 	if opt_equal == "unequal":
 		k = -1
 		del la[0]
-	
+
 	return Puzzle_List(k, la)
 
 def assert_ans_k(expected_k, puzzle_list):
