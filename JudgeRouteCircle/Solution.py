@@ -7,8 +7,7 @@ class Solution:
         originPos = [0, 0]
         currentPos = [0, 0]
         for m in moves:
-          _move = getattr(self, m)
-          _move(currentPos)
+          getattr(self, m)(currentPos)
           if currentPos[0] == originPos[0] and currentPos[1] == originPos[1]: return True
         return False
 
