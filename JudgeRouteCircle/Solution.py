@@ -8,8 +8,7 @@ class Solution:
         currentPos = [0, 0]
         for m in moves:
           getattr(self, m)(currentPos)
-          if currentPos[0] == originPos[0] and currentPos[1] == originPos[1]: return True
-        return False
+        return True if currentPos[0] == originPos[0] and currentPos[1] == originPos[1] else False
 
 
     def U(self, pos):
@@ -29,6 +28,7 @@ testMoves.append(('UD', True))
 testMoves.append(('LL', False))
 testMoves.append(('URDL', True))
 testMoves.append(('URDDL', False))
+testMoves.append(('DURDLDRRLL', False))
 
 s = Solution()
 for data in testMoves:
