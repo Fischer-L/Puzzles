@@ -29,7 +29,7 @@ class Solution(object):
             posL = nums[posL]
             pos2L = nums[nums[pos2L]]
             
-        # After finding stepL, now we are able to find x_c.
+        # After finding x_l, now we are able to find x_c.
         # Consider stepsToL is the smallest multiple of rhoLen larger than stepsToC.
         # Hence f(stepsToL) ends at f(stepC) plus (rhoLen - stepsToC) steps forward.
         # So we know we will reach f(stepsToC) again after stepC steps forward starting from f(stepsToL),
