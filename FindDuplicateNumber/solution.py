@@ -7,7 +7,7 @@ class Solution(object):
         if len(nums) <= 0: return -1
         
         # Ideal from: http://keithschwarz.com/interesting/code/?dir=find-duplicate
-        # We have to see the input array from a whole different angel.
+        # We have to see the input array from a whole different angle.
         # This array in fact is a map(or route function) for a route, which is
         #   x_0 = 0             => Step 0: start from the position x_0
         #   f(1) => nums[x_0] = x_1     => Step 1: from x_0 go to x_1
