@@ -33,7 +33,7 @@ class Solution(object):
         # Consider stepsToL is the smallest multiple of rhoLen larger than stepsToC.
         # Hence f(stepsToL) ends at f(stepC) plus (rhoLen - stepsToC) steps forward.
         # So we know we will reach f(stepsToC) again after stepC steps forward starting from f(stepsToL),
-        # which is to find f(stepsToC) = f(stepsToL + stepsToC).
+        # which is to find f(stepsToC) == f(stepsToL + stepsToC).
         posC = 0
         while posC != posL:
             posC = nums[posC]
