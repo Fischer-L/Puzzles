@@ -21,7 +21,7 @@ class Solution:
         : type b: int begin index
         : type e: int end index
         """
-        key = str(b) + str(e)
+        key = str(b) + "-" + str(e)
         if key in self._cache:
             return self._cache[key]
         
@@ -31,7 +31,7 @@ class Solution:
         else:
             b += 1
             e -= 1
-            if b > e:
+            if b >= e:
                 self._cache[key] = True
                 return True
             ans = self._cache[key] = self._isPalindromic(s, b, e)
