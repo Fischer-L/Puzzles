@@ -23,6 +23,10 @@ class Solution:
   """
   
   def findBySorting(self, v):
+    """
+    Slower! Run 10000x below test case.
+    The total duration of findBySorting is 2.5307752109365538
+    """
     sA = sorted(A)
     lenA = len(sA)
     min = -1
@@ -38,6 +42,10 @@ class Solution:
     return min
   
   def findByDividingTree(self, A):
+    """
+    Faster! Run 10000x below test case.
+    The total duration of findByDividingTree is 0.5165035830577835
+    """
     root = Root(A[0])
     lenA = len(A)
     min = -1
