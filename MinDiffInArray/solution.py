@@ -43,8 +43,9 @@ class Solution:
   
   def findByDividingTree(self, A):
     """
-    Faster! Run 10000x below test case.
-    The total duration of findByDividingTree is 0.5165035830577835
+    Faster with the optimization! Run 10000x below test case.
+    The total duration of findByDividingTree is 0.5165035830577835.
+    But slower without the optimization.
     """
     root = Root(A[0])
     lenA = len(A)
