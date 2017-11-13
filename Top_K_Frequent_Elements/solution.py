@@ -1,17 +1,5 @@
 from collections import Counter
 
-class Node:
-    def __init_(self, v, c):
-        """
-        v = the value in the array
-        c = the count of the presence; this is used for the max heap
-        """
-        self.v = v
-        self.c = c
-        self.left = None
-        self.right = None
-        self.parent = None
-
 class Solution:
     def topKFrequent(self, nums, k):
         """
