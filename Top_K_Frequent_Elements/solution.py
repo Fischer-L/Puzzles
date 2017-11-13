@@ -25,14 +25,14 @@ class Solution:
         coms = Counter(nums).most_common(k)
         return [ i[0] for i in coms ]
     
-    # def _goHeap(self, nums, k):
-    #     root = None
-    #     ct = Counter(nums)
-    #     for _, v in enumerate(ct):
-    #         n = Node(v, ct[v])
-    #         if not root:
-    #             root = n
-    #         else:
-                
+    def _goHeap(self, nums, k):
+        let mh = self._buildMaxHeap(nums)
+        
+    def _buildMaxHeap(self, nums):
+        n = len(nums)
+        ldx = int(n / 2) # the index of the last internal node        
+        for i in range(ldx, -1, -1):
+            self._maxHeapify(nums, i, n)
             
-    
+    def _maxHeapify(self, nums, i, n):
+        
