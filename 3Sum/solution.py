@@ -6,14 +6,14 @@ class Solution(object):
         """
         
         i = 0
-        L = len(nums)
+        MAX = len(nums) - 1
         ans = []
         nums.sort()
         
-        while i < L - 1:
+        while i < MAX:
             v = nums[i]
             begin = i + 1
-            end = L - 1
+            end = MAX
             
             while begin < end:
                 s = v + nums[begin] + nums[end]
@@ -33,7 +33,7 @@ class Solution(object):
                     end -= 1
                 
             # Processing duplicates of Number 1
-            while i < L - 1 and nums[i] == v: i += 1
+            while MAX and nums[i] == v: i += 1
         
         return ans
         
