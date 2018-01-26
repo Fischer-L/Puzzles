@@ -1,4 +1,8 @@
 class Solution(object):
+  # Anthoer solution by Walter
+  # Loop horizontally one row by row if meeting one "land", check out the one below that land.
+  # If the below is a land as well, then memorize we have to subtract borders later.
+  
   def islandPerimeter(self, grid):
     """
     :type grid: List[List[int]]
