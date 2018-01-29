@@ -3,9 +3,6 @@
  * @return {number}
  */
 var firstUniqChar = function(s) {
-  if (!s) {
-    return -1;
-  }
   let dict = {};
   for (let i = s.length - 1; i >= 0; --i) {
       let c = s[i];
