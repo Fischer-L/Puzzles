@@ -6,7 +6,6 @@
 var licenseKeyFormatting = function(S, K) {
     let ans = [];
     S = S.split("-").join("").toUpperCase();
-    console.log(S);
     let i = S.length;
     do {
         i -= K;
