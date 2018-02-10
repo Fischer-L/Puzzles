@@ -12,13 +12,6 @@ var swimInWater = function(grid) {
 
 var minTime = Number.MAX_SAFE_INTEGER;
 
-// var populateMinTimeTable = function (grid) {
-//     minTime = grid.map(row => row.slice());
-//     minTime.forEach(row => {
-//         row.forEach((v, i, row) => row[i] = Number.MAX_SAFE_INTEGER);
-//     });
-// }
-
 var traverseGrid = function(currentTime, grid, limit, rootPos, parentPos, visitedPoses) {
     let [ri, rj] = rootPos;
     let neededTime = grid[ri][rj];
