@@ -25,6 +25,5 @@ var buildTree = function(preorder, inorder) {
     let rightPreorder = preorder.slice(ri + 1);
     let rightInorder = inorder.slice(ri + 1);
     root.right = buildTree(rightPreorder, rightInorder);
-    console.log(root);
     return root;
 };
