@@ -1,0 +1,4 @@
+var findCelebrity = function(n) {
+
+
+}
