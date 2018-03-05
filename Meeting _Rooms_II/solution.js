@@ -1,0 +1,3 @@
+var meetingRooms = function (intervals) {
+
+}
