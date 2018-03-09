@@ -1,4 +1,4 @@
-Determine if a Sudoku is valid, according to: Sudoku Puzzles - The Rules [1].
+Determine if a Sudoku is valid, according to: Sudoku Puzzles - The Rules: http://sudoku.com.au/TheRules.aspx
 
 The Sudoku board could be partially filled, where empty cells are filled with the character '.'.
 
@@ -23,6 +23,4 @@ Input:
  ["7",".",".",".",".",".",".",".","."],["8",".",".",".",".",".",".",".","."],["9",".",".",".",".",".",".",".","."]]
  
 Return: False
-
-
-[1] http://sudoku.com.au/TheRules.aspx
+```
