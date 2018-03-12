@@ -22,22 +22,21 @@ var findLongestCount = function (s, k, start, end) {
             charLessThanK.delete(c);
         }
     }
-    console.log("start, end, charLessThanK =", start, end, charLessThanK);
-    console.log("");
+    
     if (charLessThanK.size === 0) return end - start + 1;
     
     let count = 0;
     let j = start, i = j;
     while (j <= end) {
-        if (charLessThanK.has(s[j]) && j - i > count) {
+        if (charLessThanK.has(s[j])) {
             count = Math.max(count, findLongestCount(s, k, i, j - 1));
             i = ++j;
-        } else if (j === end && j - i + 1 > count) {
-            count = Math.max(count, findLongestCount(s, k, i, j));
-            ++j;
         } else {
             ++j;
         }
     }
+    if (i < j) {
+        count = Math.max(count, findLongestCount(s, k, i, j - 1));
+    }
     return count;
-}
+};
