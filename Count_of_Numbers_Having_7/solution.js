@@ -11,11 +11,11 @@ const  count7sMap = new Map([[0, 0], [1, 1]]);
  * @param power {Interge} the power for the base 10.
  * @return {Interge} The count of numbers containing 7.
  */
-function getCount7sByPowerOf10(power) {
+function getCount7sByPower(power) {
   if (count7sMap.has(power)) {
     return count7sMap.get(power);
   }
-  let count = 9 * getCount7sByPowerOf10(power - 1);
+  let count = 9 * getCount7sByPower(power - 1);
   count += 10 ** (power - 1);
   count7sMap.set(power, count);
   return count;
@@ -104,7 +104,7 @@ function g(N) {
       }
     } else {
       if (factor <= 7) {
-        count7s += factor * getCount7sByPowerOf10(power);
+        count7s += factor * getCount7sByPower(power);
         if (factor === 7) {
           count7s += factors.reduce((sum, f, p) => {
             sum += f * (10 ** p);
@@ -113,7 +113,7 @@ function g(N) {
           factors = [];
         }
       } else {
-        count7s += (factor - 1) * getCount7sByPowerOf10(power);
+        count7s += (factor - 1) * getCount7sByPower(power);
         count7s += 10 ** power;
       }
     }
