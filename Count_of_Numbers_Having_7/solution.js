@@ -95,6 +95,9 @@ function decompose(N) {
  * @return {Integer} The count of numbers containing 7 from 1 ~ N (0 can always be ignored)
  */
 function g(N) {
+  if (N < 0) {
+    throw "N should be a positive integer!";
+  }
   if (!Number.isSafeInteger(N)) {
     // In case someone trys some super over large number.
     throw "N cannot exceed Number.MAX_SAFE_INTEGER!";
