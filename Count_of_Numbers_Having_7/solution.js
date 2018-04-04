@@ -84,9 +84,9 @@ function decompose(N) {
  *     if a > 7, the count would be (a - 1) * the count of 7s from 0 ~ 10 ** k plus 10 ** k.
  *
  * (4) `N` represents from 0 ~ a * (10 ** k) + b * (10 ** (k - 1)) + ... + z
- *     If `a !== 7`, the total count would be the sum of the counts
+ *     If `a < 7`, the total count would be the sum of the counts
  *     of 7s from 0 ~ a * (10 ** k), 0 ~  b * (10 ** (k - 1)), ..., z.
- *     If `a === 7`, the total count would be the sum of the counts
+ *     If `a >= 7`, the total count would be the sum of the counts
  *     of 7s from 0 ~ a * (10 ** k) plus the result of b * (10 ** (k - 1)) + ... + z
  *
  * @param N {Interge} Any positive interge
