@@ -8,8 +8,8 @@ const  count7sMap = new Map([[0, 0], [1, 1]]);
 /**
  * Get the count of numbers containing 7 from 0 ~ 10 ** `power`
  *
- * @param power {Interge} the power for the base 10.
- * @return {Interge} The count of numbers containing 7.
+ * @param power {Integer} the power for the base 10.
+ * @return {Integer} The count of numbers containing 7.
  */
 function getCount7sByPower(power) {
   if (count7sMap.has(power)) {
@@ -22,7 +22,7 @@ function getCount7sByPower(power) {
 }
 
 /**
- * @param N {Integer} Any positive interge.
+ * @param N {Integer} Any positive safe Integer.
  * @return {Array} For example, if `N === 123`, it will return [3, 2, 1],
  *                 so `N` is decomposed into 1 * (10 ** 2) + 2 * 10 + 3.
  */
@@ -91,10 +91,15 @@ function decompose(N) {
  *     If `a > 7`, the total count would be the sum of the counts
  *     of 7s from 0 ~ (a - 1) * (10 ** k) plus (10 ** k) plus the counts of 7s from the rest factors.
  *
- * @param N {Interge} Any positive interge
- * @return {Interge} The count of numbers containing 7 from 1 ~ N (0 can always be ignored)
+ * @param N {Integer} Any positive safe Integer
+ * @return {Integer} The count of numbers containing 7 from 1 ~ N (0 can always be ignored)
  */
 function g(N) {
+  if (!Number.isSafeInteger(N)) {
+    // In case someone trys some super over large number.
+    throw "N cannot exceed Number.MAX_SAFE_INTEGER!";
+  }
+
   let count7s = 0;
   let factors = decompose(N);
   while (factors.length) {
