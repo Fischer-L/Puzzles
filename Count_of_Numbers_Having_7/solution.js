@@ -38,16 +38,16 @@ function decompose(N) {
 /**
  * Let's observe:
  * 
- * (1) `N` represents from 0 ~ 99.
+ * (1) `N` represents from 0 ~ 100.
  *     00, 01, 02, 03, 04, 05, 06, 07, 08, 09 => 1 count
  *     10, 11, 12, 13, 14, 15, 16, 17, 18, 19 => 1 count
  *     ... ...
  *     70, 71, 72, 73, 74, 75, 76, 77, 78, 79 => 10 counts
  *     80, 81, 82, 83, 84, 85, 86, 87, 88, 89 => 1 count
- *     90, 91, 92, 93, 94, 95, 96, 97, 98, 99 => 1 count
+ *     90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100 => 1 count
  *     The total count is 19(= 9 * 1 + 10)
  *
- * (2) `N` represents from 0 ~ 999.
+ * (2) `N` represents from 0 ~ 1000.
  *     000, 001, 002, 003, 004, 005, 006, 007, 008, 009 => 1 count
  *     010, 011, 012, 013, 014, 015, 016, 017, 018, 019 => 1 count
  *     ... ...
@@ -73,21 +73,21 @@ function decompose(N) {
  *     ... ...
  *     970, 971, 972, 973, 974, 975, 976, 977, 978, 979 => 10 counts
  *     980, 981, 982, 983, 984, 985, 986, 987, 988, 989 => 1 count
- *     990, 991, 992, 993, 994, 995, 996, 997, 998, 999 => 1 count
+ *     990, 991, 992, 993, 994, 995, 996, 997, 998, 999, 1000 => 1 count
  *     (The subtotal is 19)
  *
  *     The total count is 271(= 9 * 19 + 100)
  *
  * (3) `N` represents from 0 ~ a * (10 ** k).
- *     if a < 7, the count would be a * the count of 0 ~ 10 ** k.
- *     if a === 7, the count would be a * the count of 0 ~ 10 ** k plus 1.
- *     if a > 7, the count would be (a - 1) * the count of 0 ~ 10 ** k plus 10 ** k.
+ *     if a < 7, the count would be a * the count of 7s from 0 ~ 10 ** k.
+ *     if a === 7, the count would be a * the count of 7s from 0 ~ (10 ** k) - 1 plus 1.
+ *     if a > 7, the count would be (a - 1) * the count of 7s from 0 ~ 10 ** k plus 10 ** k.
  *
  * (4) `N` represents from 0 ~ a * (10 ** k) + b * (10 ** (k - 1)) + ... + z
  *     If `a !== 7`, the total count would be the sum of the counts
- *     of 0 ~ a * (10 ** k), 0 ~  b * (10 ** (k - 1)), ..., z.
+ *     of 7s from 0 ~ a * (10 ** k), 0 ~  b * (10 ** (k - 1)), ..., z.
  *     If `a === 7`, the total count would be the sum of the counts
- *     of 0 ~ a * (10 ** k) plus the result of b * (10 ** (k - 1)) + ... + z
+ *     of 7s from 0 ~ a * (10 ** k) plus the result of b * (10 ** (k - 1)) + ... + z
  *
  * @param N {Interge} Any positive interge
  * @return {Interge} The count of numbers containing 7 from 1 ~ N (0 can always be ignored)
