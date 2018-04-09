@@ -9,3 +9,5 @@ EXAMPLES:
 ```
 
 Implement g(N)
+
+gist: https://gist.github.com/Fischer-L/570b7c7d87b2aaa7bbe9b6b6b1fe4bd3
