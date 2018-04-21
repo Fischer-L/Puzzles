@@ -1,0 +1,3 @@
+function calcIsIandPerimeter(island) {
+
+}
