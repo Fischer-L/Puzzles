@@ -7,6 +7,7 @@ function calcIsIandPerimeter(island) {
   let peri = 0;
   let land = false;
   for (let v = 0; v < V; ++v) {
+    land = false;
     for (let h = 0; h < H; ++h) {
       let cell = island[v][h];
       if (cell === 1) {
@@ -20,8 +21,8 @@ function calcIsIandPerimeter(island) {
     }
   }
   
-  land = false;
   for (let h = 0; h < H; ++h) {
+    land = false;
     for (let v = 0; v < V; ++v) {
       let cell = island[v][h];
       if (cell === 1) {
