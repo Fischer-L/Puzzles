@@ -23,7 +23,7 @@ var findMaximumXOR = function(nums) {
                       "right" : node.left ? 
                       "left" : "";
             }
-            if (!dir) throw "Unexpected bots tree";
+            if (!dir) throw "Unexpected bits tree";
             node = node[dir];
             let xor = b ^ node.bit;
             if (strictLarge) {
