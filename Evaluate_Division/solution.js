@@ -45,7 +45,7 @@ var buildGraph = function(equations, values) {
             if (i == j) {
                 graph[i][j] = 1;
             } else if (graph[i][j] <= 0) {
-                for (let k = 0; k < i; ++k) {
+                for (let k = 0; k < L; ++k) {
                     if (graph[i][k] > 0 && graph[k][j] > 0) {
                         graph[i][j] = graph[i][k] * graph[k][j];
                         graph[j][i] = 1 / graph[i][j];
