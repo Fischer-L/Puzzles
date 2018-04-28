@@ -1,6 +1,6 @@
 
 class Solution:
-    def maxCoins(self, nums):
+    def maxCoinsByRecursion(self, nums):
         """
         :type nums: List[int]
         :rtype: int
@@ -28,10 +28,11 @@ class Solution:
             while i < e:
                 left = self.calcMaxByRecursion(s, i, balloons, dp)
                 right = self.calcMaxByRecursion(i, e, balloons, dp)
-                mid = sCoin * balloons[s+1] * eCoin
+                mid = sCoin * balloons[i] * eCoin
                 maxCoin = max(maxCoin, left + mid + right)
                 i += 1
             
         dp[s][e] = maxCoin
+        
         return maxCoin
         
