@@ -10,7 +10,7 @@ class Solution {
         return this.calcMaxByRecursion(0, L-1, balloons, new int[L][L]);
     }
     
-    private int calcMaByRecursionx(int s, int e, ArrayList<Integer> balloons, int[][] dp) {
+    private int calcMaxByRecursion(int s, int e, ArrayList<Integer> balloons, int[][] dp) {
         if (s + 1 >= e) return 0;
         
         if (dp[s][e] > 0) return dp[s][e];
@@ -25,8 +25,8 @@ class Solution {
             int left = 0;
             int right = 0;
             for (int i = s + 1; i < e; ++i) {
-                left = calcMax(s, i, balloons, dp);
-                right = calcMax(i, e, balloons, dp);
+                left = this.calcMaxByRecursion(s, i, balloons, dp);
+                right = this.calcMaxByRecursion(i, e, balloons, dp);
                 mid = sCoin * balloons.get(i) * eCoin;
                 max = Math.max(max, left + mid + right);
             }
