@@ -34,4 +34,26 @@ class Solution {
         dp[s][e] = max;
         return max;
     }
+    
+    public int maxCoinsByLoop(int[] nums) {
+        ArrayList<Integer> balloons = new ArrayList<Integer>();
+        balloons.add(1);
+        for (int n : nums) {
+            if (n > 0) balloons.add(n);
+        }
+        balloons.add(1);
+        int L = balloons.size();
+        int[][] dp = new int[L][L];
+        for (int k = 2; k < L; ++k) {
+            int s = 0;
+            int e = s + k;
+            for (; e < L; ++s, ++e) {
+                for (int i = s + 1; i < e; ++i) {
+                    int last = balloons.get(s) * balloons.get(i) * balloons.get(e);
+                    dp[s][e] = Math.max(dp[s][e], dp[s][i] + last + dp[i][e]);
+                }
+            }
+        }
+        return dp[0][L-1];
+    }
 }
