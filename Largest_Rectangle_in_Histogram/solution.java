@@ -31,4 +31,31 @@ class Solution {
         
         return maxArea;
     }
+    
+    public int largestRectangleAreaByStack(int[] heights) {
+        Stack<Integer> stack = new Stack<Integer>();
+        
+        int maxArea = 0;
+        for (int i = 0; i < heights.length; ++i) {
+            if (!stack.empty()) {
+                int rightH = heights[i];
+                while (!stack.empty() && heights[stack.peek()] > rightH) {
+                    int mid = stack.pop();
+                    int left = stack.empty() ? - 1 : stack.peek();
+                    int area = heights[mid] * (i - left - 1);
+                    maxArea = Math.max(maxArea, area);
+                }
+            }
+            stack.push(i);
+        }
+        
+        int right = heights.length - 1;
+        while (!stack.empty()) {
+            int mid = stack.pop();
+            int left = stack.empty() ? -1 : stack.peek();
+            int area = heights[mid] * (right - left);
+            maxArea = Math.max(maxArea, area);
+        }
+        return maxArea;
+    }
 }
