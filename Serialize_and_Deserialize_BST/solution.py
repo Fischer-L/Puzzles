@@ -6,7 +6,8 @@
 #         self.right = None
 
 class Codec: 
-    
+    # Format into a array-like representation: "1,2,3,n,n,6,n"
+    # However this approach is a bit long...
     def serialize(self, root):
         """Encodes a tree to a single string.
         
@@ -39,7 +40,7 @@ class Codec:
         
         return treeStr[1:]
         
-
+    # Build the tree from the array-like representation: "1,2,3,n,n,6,n"
     def deserialize(self, data):
         """Decodes your encoded data to tree.
         
