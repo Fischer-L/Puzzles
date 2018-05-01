@@ -1,0 +1,22 @@
+class Solution {
+    public boolean wordBreak(String str, List<String> dict) {
+        final int L = str.length();
+        final int dictL = dict.size();
+        boolean[] breaks = new boolean[L];
+        
+        for (int i = 0; i < L; ++i) {
+            if (i == 0 || breaks[i-1]) {
+                for (int j = 0; j < dictL; ++j) {
+                    String s = dict.get(j);
+                    if (str.startsWith(s, i)) {
+                        breaks[i + s.length() - 1] = true;
+                        if (breaks[L-1]) return true;
+                    }
+                }
+            }
+        }
+    
+        return false;
+        
+    }
+}
