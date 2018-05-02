@@ -21,8 +21,7 @@ class Solution {
       wSize++;
     }
     int[] maxNums = new int[wSize];
-    // for (int i = 0; i < wSize; ++i) maxNums[i] = window.get(i);
-    window.toArray(maxNums);
+    for (int i = 0; i < wSize; ++i) maxNums[i] = window.get(i);
     return maxNums;
   }
 
