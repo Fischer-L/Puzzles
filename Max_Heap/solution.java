@@ -2,9 +2,9 @@ import java.util.*;
 
 class Solution {
   public int[] buildMaxHeap(int[] nums) {
-    final int L = (int) Math.floor(nums.length/2);
-    int[] heap = Arrays.copyOfRange(nums, 0, L);
-    for (int i = L; i >= 0; --i) {
+    int[] heap = Arrays.copyOfRange(nums, 0, nums.length);
+    int i = (int) Math.floor(nums.length/2);
+    for (; i >= 0; --i) {
       this.maxHeapify(heap, i, L);
     }
     return heap;
