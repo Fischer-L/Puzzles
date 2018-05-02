@@ -3,7 +3,8 @@ import java.util.*;
 class Solution {
   public int[] buildMaxHeap(int[] nums) {
     int[] heap = Arrays.copyOfRange(nums, 0, nums.length);
-    int i = (int) Math.floor(nums.length/2);
+    final int L = nums.length;
+    int i = (int) Math.floor(L/2);
     for (; i >= 0; --i) {
       this.maxHeapify(heap, i, L);
     }
