@@ -2,7 +2,7 @@ import java.util.*;
 
 class Solution {
   public int[] buildMaxHeap(int[] nums) {
-    final int L = Math.floor(nums.length/2);
+    final int L = (int) Math.floor(nums.length/2);
     int[] heap = Arrays.copyOfRange(nums, 0, L);
     for (int i = L; i >= 0; --i) {
       this.maxHeapify(heap, i, L);
@@ -10,7 +10,7 @@ class Solution {
     return heap;
   }
   
-  public void maxHeapify(int[] heap, int root, int ceil) {
+  public void maxHeapify(int[] heap, int i, int ceil) {
     int maxIdx = i;
     int left = 2 * root + 1;
     int right = 2 * root + 2;
