@@ -13,8 +13,8 @@ class Solution {
   
   public void maxHeapify(int[] heap, int i, int ceil) {
     int maxIdx = i;
-    int left = 2 * root + 1;
-    int right = 2 * root + 2;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
     
     if (left < ceil && right < ceil) {
       int bigger = heap[left] > heap[right] ? left : right;
