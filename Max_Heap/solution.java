@@ -49,4 +49,28 @@ class Solution {
     }
     return max;
   }
+  
+  public Integer increaseMaxHeap(List<Integer> heap, int i, int key) {
+    if (i < 0 || i >= heap.size()) return null;
+    
+    Integer old = heap.get(i);
+    if (old >= key) return null;
+    
+    heap.set(i, key);
+    while (i >= 0) {
+      int parent = (int) Math.ceil((i/2.0) - 1.0);
+      if (parent >= 0) {
+        Integer childKey = heap.get(i);
+        Integer parentKey = heap.get(parent);
+        if (childKey > parentKey) {
+          heap.set(parent, childKey);
+          heap.set(i, parentKey);
+        } else {
+          parent = -1;
+        }
+      }
+      i = parent;
+    }
+    return old;
+  }
 }
