@@ -52,4 +52,50 @@ class Solution {
     return nums[k];
   }
 
+  public Integer findKthSmallestRecursively(int[] nums, int kth) {
+    int len = nums.length;
+    if (kth <= 0 || kth > len) return -1;
+    return this.findKthRecursively(nums, kth-1, -1, -1);
+  }
+
+  private Integer findKthRecursively(int[] nums, int kth, int start, int end) {
+    if (start < 0) start = 0;
+    if (end < 0) end = nums.length - 1;
+    
+    int s = 0;
+    int e = end - 1;
+    int k = end;
+    int sv = 0;
+    int ev = 0;
+    int kv = nums[k];
+    while (s <= e) {
+      sv = nums[s];
+      ev = nums[e];
+      if (sv <= kv && ev > kv) {
+        s++;
+        e--;
+      } else if (sv <= kv && ev <= kv) {
+        s++;
+      } else if (sv > kv && ev > kv) {
+        e--;
+      } else if (sv > kv && ev <= kv) {
+        nums[s] = ev;
+        nums[e] = sv;
+        s++;
+        e--;
+      }
+    }
+    sv = nums[s];
+    nums[s] = kv;
+    nums[k] = sv;
+    k = s;
+    if (k > kth) {
+      end = k - 1;
+    } else if (k < kth) {
+      start = k + 1;
+    } else {
+      return nums[k];
+    }
+    return this.findKthRecursively(nums, kth, start, end);
+  }
 }
