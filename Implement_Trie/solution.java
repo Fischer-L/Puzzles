@@ -20,9 +20,9 @@ class Trie {
                 child = new Trie.Node(ch);
                 parent.children.put(ch, child);
             }
-            if (i == L - 1) child.word = word;
             parent = child;
         }
+        child.word = word;
     }
     
     /** Returns if the word is in the trie. */
