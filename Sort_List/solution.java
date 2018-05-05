@@ -33,6 +33,9 @@ class Solution {
     pivot.val = pivotVal;
     
     this.quickSort(head, pivot);
+    // Since we put those nodes with the same vals as the pivot on the right side
+    // there might be a chance we could skip those dulplicates.
+    while (pivot.next != null && pivot.val == pivot.next.val) pivot = pivot.next; 
     this.quickSort(pivot.next, end);
   }
 
