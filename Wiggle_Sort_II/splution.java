@@ -1,4 +1,34 @@
 class Solution {
+  public void wiggleSort_Space_1(int[] nums) {
+    final int L = nums != null ? nums.length : 0;
+    if (L <= 1) return;
+    
+    int m = this.findMedianIdx(nums, L);
+    int med = nums[m];
+    int freeOdd = 1;
+    int freeEven = L % 2 == 0 ? L - 2 : L - 1;
+    for (int i = 0; i < L;) {
+        boolean atOdd = i % 2 != 0;
+        if (nums[i] < med) {
+            if (atOdd || (!atOdd && i <= freeEven)) {
+                this.swap(nums, i, freeEven);
+                freeEven -= 2;
+            } else {
+                i++;
+            }
+        } else if (nums[i] > med) {
+            if (!atOdd || (atOdd && i >= freeOdd)) {
+                this.swap(nums, i, freeOdd);
+                freeOdd += 2;
+            } else {
+                i++;
+            }
+        } else {
+            i++;
+        }
+    }
+  }
+  
   public void wiggleSort_Space_n(int[] nums) {
     final int L = nums != null ? nums.length : 0;
     if (L <= 1) return;
