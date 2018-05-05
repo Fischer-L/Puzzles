@@ -1,39 +1,12 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
-class Solution {
-  public ListNode sortList(ListNode head) {
-    this.quickSort(head, null);
-    return head;
-  }
+Sort a linked list in O(n log n) time using constant space complexity.
 
-  public void quickSort(ListNode head, ListNode end) {
-    if (head == end || head == null || head.next == null) return;
-    
-    ListNode curr = head.next;
-    ListNode pivot = head;
-    int pivotVal = head.val;
-    
-    while (curr != end) {
-      if (curr.val < pivotVal) {
-        int tmp = curr.val;
-        pivot = pivot.next;
-        curr.val = pivot.val;
-        pivot.val = tmp;
-      }
-      curr = curr.next;
-    }
-    
-    head.val = pivot.val;
-    pivot.val = pivotVal;
-    
-    this.quickSort(head, pivot);
-    this.quickSort(pivot.next, end);
-  }
-
-}
+Example 1:
+```
+Input: 4->2->1->3
+Output: 1->2->3->4
+```
+Example 2:
+```
+Input: -1->5->3->4->0
+Output: -1->0->3->4->5
+```
