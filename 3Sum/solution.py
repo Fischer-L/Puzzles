@@ -33,7 +33,7 @@ class Solution(object):
                     end -= 1
                 
             # Processing duplicates of Number 1
-            while MAX and nums[i] == v: i += 1
+            while i <= MAX and nums[i] == v: i += 1
         
         return ans
         
