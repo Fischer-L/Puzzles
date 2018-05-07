@@ -1,7 +1,7 @@
 class Solution {
   public boolean isPowerOf3(int n) {
     int maxPowOf3 = this.getTheMaxPowerOf3();
-    return n >= 3 && (maxPowOf3 % 3 == 0);
+    return n >= 3 && (maxPowOf3 % n == 0);
   }
   
   private int getTheMaxPowerOf3() {
