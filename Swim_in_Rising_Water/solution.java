@@ -1,20 +1,24 @@
 class Solution {
+    public int swimInWater(int[][] grid) {
+        return this.swimByDijsktra(grid);
+    }
   public int swimByDijsktra(int[][] grid) {
     final int L = grid == null ? 0 : grid.length;
     if (L == 0) return -1;
     
     Cell[][] map = this.buildMap(L);
+    Cell exit = map[L-1][L-1];
     Cell min = map[0][0];
     min.time = grid[0][0];
-    min.done = true;
     while (min != null) {
       min.done = true;
       Cell[] neighbors = this.getNeighbors(min.r, min.c, L, map);
       for (Cell c : neighbors) {
         if (c == null || c.done) continue;
         if (min.time < c.time) c.time = min.time;
-        if (c.time < grid[c.r][c.c]) c.time = grid[c.r][c.c];
-        if (c != map[L-1][L-1]) this.pushCell(c);
+        int required = grid[c.r][c.c];
+        if (c.time < required) c.time = required;
+        if (c != exit) this.pushCell(c);
       }
       min = this.popCell();
     }
@@ -48,13 +52,25 @@ class Solution {
   }
   
   private void pushCell(Cell c) {
-    this.pendingCells.add(c);
-    Collections.sort(this.pendingCells, new Comparator<Cell> () {
-      @Override
-      public int compare(Cell a, Cell b) {
-        return a.time - b.time;
-      }
-    });
+    int s = 0;
+    int e = this.pendingCells.size() - 1;
+    if (e < 0) this.pendingCells.add(c);
+    
+    while (s < e) {
+        int m = (s + e) / 2;
+        int t = this.pendingCells.get(m).time;
+        if (c.time > t) {
+            s = m + 1;
+        } else if (c.time < t) {
+            e = m - 1;
+        } else {
+            s = e = m;
+        }
+    }
+    
+    int t = this.pendingCells.get(s).time;
+    if (c.time >= t) this.pendingCells.add(s+1, c);
+    else this.pendingCells.add(s, c);
   }
     
   static class Cell {
