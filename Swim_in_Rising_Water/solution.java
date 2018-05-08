@@ -14,12 +14,11 @@ class Solution {
       min.done = true;
       Cell[] neighbors = this.getNeighbors(min.r, min.c, L, map);
       for (Cell c : neighbors) {
-        if (c == null || c.done) continue;
+        if (c == null || c.done || c.time > exit.time) continue;
         if (min.time < c.time) c.time = min.time;
         int required = grid[c.r][c.c];
         if (c.time < required) c.time = required;
         if (c != exit && c.time < exit.time) this.pushCell(c);
-        if (c.time >= exit.time) c.done = true;
       }
       min = this.popCell();
     }
