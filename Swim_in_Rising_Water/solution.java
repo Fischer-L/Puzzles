@@ -7,7 +7,7 @@ class Solution {
     final int L = grid == null ? 0 : grid.length;
     if (L == 0) return -1;
     
-    PriorityQueue<Cell> pq = new PriorityQueue<Cell>(L, new Comparator<Cell>() {
+    PriorityQueue<Cell> pq = new PriorityQueue<Cell>(10, new Comparator<Cell>() {
       @Override
       public int compare(Cell a, Cell b) { return a.time - b.time; }
     });
