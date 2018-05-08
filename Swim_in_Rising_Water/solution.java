@@ -18,7 +18,8 @@ class Solution {
         if (min.time < c.time) c.time = min.time;
         int required = grid[c.r][c.c];
         if (c.time < required) c.time = required;
-        if (c != exit) this.pushCell(c);
+        if (c != exit && c.time < exit.time) this.pushCell(c);
+        if (c.time >= exit.time) c.done = true;
       }
       min = this.popCell();
     }
