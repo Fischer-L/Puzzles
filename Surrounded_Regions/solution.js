@@ -5,7 +5,7 @@
 var solve = function(board) {
     const ROW = board ? board.length-1 : -1;
     const COL = ROW >= 0 ? board[0].length-1 : -1;
-    if (ROW < 0 || COL < 0) return
+    if (ROW < 0 || COL < 0) return;
     
     for (let c = 0; c <= COL; c++) {
         traverseBoard(board, 0, c, ROW, COL);
