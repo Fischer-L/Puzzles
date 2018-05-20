@@ -6,7 +6,7 @@ class Solution {
         int s = 0;
         int e = 0;
         int longest = 0;
-        // ArrayDeque is a bit faster than HashSet per the Leetode result
+        // ArrayDeque is a bit faster than HashSet per the Leetcode result
         ArrayDeque<Character> q = new ArrayDeque<Character>();
         while (e < L) {
             char c = str.charAt(e);
