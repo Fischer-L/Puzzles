@@ -42,7 +42,9 @@ function searchNumByCount(s1, e1, long, s2, e2, short, count) {
         return nums[i];
     }
     
+    // This is log(long.length)
     let m1 = Math.floor((s1 + e1) / 2);
+    // This is log(short.length)
     let range = findRange(s2, e2, short, long[m1]);
     let leftCount = m1 + range[1];
     if (count < leftCount) {
