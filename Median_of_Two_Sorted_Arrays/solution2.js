@@ -28,7 +28,7 @@ var findMedianSortedArrays = function(nums1, nums2) {
     
     while (s <= e) {
         left[0] = Math.floor((s + e) / 2);
-        left[1] = half - left[0] - 2;
+        left[1] = Math.max(half - left[0] - 2, -1);
         if (left[1] >= shorter.length) {
             s = left[0] + 1;
             continue;
@@ -44,12 +44,12 @@ var findMedianSortedArrays = function(nums1, nums2) {
                 med = longer[right[0]];
                 right[0]++;
             } else {
-                if (longer[right[0]] < shorter[right[1]]) {
-                    med = longer[right[0]];
-                    right[0]++;
-                } else {
+                if (longer[right[0]] > shorter[right[1]]) {
                     med = shorter[right[1]];
                     right[1]++;
+                } else {
+                    med = longer[right[0]];
+                    right[0]++;
                 }
             }
         } else {
