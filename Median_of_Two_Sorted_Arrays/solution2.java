@@ -48,25 +48,24 @@ class Solution {
                         right[0]++;
                     }
                 }
-            }
-            
-            if (left[0] < 0) {
-                leftMax = shorter[left[1]];    
-            } else if (left[1] < 0) {
-                leftMax = longer[left[0]]; 
             } else {
-                leftMax = Math.max(longer[left[0]], shorter[left[1]]);
+                if (left[0] < 0) {
+                    leftMax = shorter[left[1]];    
+                } else if (left[1] < 0) {
+                    leftMax = longer[left[0]]; 
+                } else {
+                    leftMax = Math.max(longer[left[0]], shorter[left[1]]);
+                }
+
+                if (right[0] >= longer.length) {
+                    rightMin = shorter[right[1]];
+                } else if (right[1] >= shorter.length) {
+                    rightMin = longer[right[0]];
+                } else {
+                    rightMin = Math.min(longer[right[0]], shorter[right[1]]);
+                }
+                med = (leftMax + rightMin) / 2.0;
             }
-            
-            if (right[0] >= longer.length) {
-                rightMin = shorter[right[1]];
-            } else if (right[1] >= shorter.length) {
-                rightMin = longer[right[0]];
-            } else {
-                rightMin = Math.min(longer[right[0]], shorter[right[1]]);
-            }
-            
-            if (!odd) med = (leftMax + rightMin) / 2.0;
             
             if (left[0] >= 0 && longer[left[0]] > med) {
                 e = left[0] - 1;
