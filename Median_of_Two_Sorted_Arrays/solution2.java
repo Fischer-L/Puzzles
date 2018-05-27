@@ -68,13 +68,13 @@ class Solution {
             
             if (!odd) med = (leftMax + rightMin) / 2.0;
             
-            if (left[0] >= 0 && longer[left[0]] > rightMin) {
+            if (left[0] >= 0 && longer[left[0]] > med) {
                 e = left[0] - 1;
-            } else if (left[1] >= 0 && shorter[left[1]] > rightMin) {
+            } else if (left[1] >= 0 && shorter[left[1]] > med) {
                 s = left[0] + 1;
-            } else if (right[0] < longer.length && longer[right[0]] < leftMax) {
+            } else if (right[0] < longer.length && longer[right[0]] < med) {
                 s = left[0] + 1;
-            } else if (right[1] < shorter.length && shorter[right[1]] < leftMax) {
+            } else if (right[1] < shorter.length && shorter[right[1]] < med) {
                 e = left[0] - 1;
             } else {
                 s = e + 1;
