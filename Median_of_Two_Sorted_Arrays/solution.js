@@ -6,81 +6,65 @@
 var findMedianSortedArrays = function(nums1, nums2) {
     const L1 = nums1 ? nums1.length : 0;
     const L2 = nums2 ? nums2.length : 0;
-    const odd = (L1 + L2) % 2 === 1;
-    const half = Math.floor((L1 + L2) / 2);
     if (L1 === 0 && L2 === 0) {
         return 0;
-    } else if (L1 === 0) {
-        return odd ? nums2[half] : (nums2[half] + nums2[half-1]) / 2;
-    } else if (L2 === 0) {
-        return odd ? nums1[half] : (nums1[half] + nums1[half-1]) / 2;
     }
     
-    let s = -1;
-    let e = half;
-    let med = 0;
-    let leftMax = 0;
-    let rightMin = 0;
-    let left = [];
-    let right = [];
-    let longer = L1 >= L2 ? nums1 : nums2;
-    let shorter = L1 >= L2 ? nums2 : nums1;
-    
-    while (s <= e) {
-        left[0] = Math.floor((s + e) / 2);
-        left[1] = half - left[0] - 2;
-        if (left[1] >= shorter.length) {
-            s = left[0] + 1;
-            continue;
-        }
-        
-        right[0] = left[0] + 1;
-        right[1] = left[1] + 1;
-        if (odd) {
-            if (right[0] >= longer.length) {
-                med = shorter[right[1]];
-                right[1]++;
-            } else if (right[1] >= longer.length) {
-                med = longer[right[0]];
-                right[0]++;
-            } else {
-                if (longer[right[0]] < shorter[right[1]]) {
-                    med = longer[right[0]];
-                    right[0]++;
-                } else {
-                    med = shorter[right[1]];
-                    right[1]++;
-                }
-            }
-        } else {
-            if (left[0] < 0) {
-                leftMax = shorter[left[1]];
-            } else if (left[1] < 0) {
-                leftMax = longer[left[0]];
-            } else {
-                leftMax = Math.max(longer[left[0]], shorter[left[1]]);
-            }
-            if (right[0] >= longer.length) {
-                rightMin = shorter[right[1]];
-            } else if (right[1] >= shorter.length) {
-                rightMin = longer[right[0]];
-            } else {
-                rightMin = Math.min(longer[right[0]], shorter[right[1]]);
-            }
-            med = (leftMax + rightMin) / 2;
-        }
-        
-        if (left[0] >= 0 && longer[left[0]] > med) {
-            e = left[0] - 1;
-        } else if (left[1] >= 0 && shorter[left[1]] > med) {
-            s = left[0] + 1;
-        } else if (right[0] < longer.length && longer[right[0]] < med) {
-            s = left[0] + 1;
-        } else if (right[1] < shorter.length && shorter[right[1]] < med) {
-            e = left[0] - 1;
-        } else {
-            s = e + 1;
-        }
+    const L = L1 + L2;
+    let counts = {};
+    if (L % 2 == 0) {
+        counts.left = (L/2) - 1;
+        counts.right = counts.left + 1;
+    } else {
+        counts.left = Math.floor(L/2);
+        counts.right = counts.left;
     }
-    return med;
+    let long = L1 > L2 ? nums1 : nums2;
+    let short = L1 > L2 ? nums2 : nums1;
+
+    let left = searchNumByCount(0, long.length-1, long, 0, short.length-1, short, counts.left);
+    let right = counts.right == counts.left ? 
+        left : searchNumByCount(0, long.length-1, long, 0, short.length-1, short, counts.right);
+    return (left + right) / 2;
 };
+
+function searchNumByCount(s1, e1, long, s2, e2, short, count) {
+    if (s1 > e1 || s2 > e2) {
+        let i = 0;
+        let nums = null;
+        if (s1 > e1) {
+            nums = short;
+            i = count - s1;
+        } else {
+            nums = long;
+            i = count - s2;
+        }
+        return nums[i];
+    }
+    
+    // This is log(long.length)
+    let m1 = Math.floor((s1 + e1) / 2);
+    // This is log(short.length)
+    let range = findRange(s2, e2, short, long[m1]);
+    let leftCount = m1 + range[1];
+    if (count < leftCount) {
+        return searchNumByCount(s1, m1-1, long, s2, range[0], short, count);
+    } else if (count > leftCount) {
+        return searchNumByCount(m1+1, e1, long, range[1], e2, short, count);
+    } else {
+        return long[m1];
+    }
+}
+
+function findRange(s, e, nums, target) {
+    while (s <= e) {
+        let m = Math.floor((s + e) / 2);
+        let v = nums[m];
+        if (v < target) {
+            s = m + 1;
+        } else if (v >= target) {
+            e = m - 1;
+        }
+    }
+    return [e, s];
+}
