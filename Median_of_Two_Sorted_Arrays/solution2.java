@@ -24,7 +24,7 @@ class Solution {
         
         while (s <= e) {
             left[0] = (s + e) / 2;
-            left[1] = half - left[0] - 2;
+            left[1] = Math.max(half - left[0] - 2, -1);
             if (left[1] >= shorter.length) {
                 s = left[0] + 1;
                 continue;
