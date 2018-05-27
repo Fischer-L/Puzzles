@@ -2,10 +2,16 @@ class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         final int L1 = nums1 == null ? 0 : nums1.length;
         final int L2 = nums2 == null ? 0 : nums2.length;
-        if (L1 == 0 && L2 == 0) return 0;
-        
         final boolean odd = (L1 + L2) % 2 == 1;
         final int half = (L1 + L2) / 2;
+        if (L1 == 0 && L2 == 0) {
+            return 0.0;
+        } else if (L1 == 0) {
+            return odd ? nums2[half] : (nums2[half] + nums2[half - 1]) / 2.0;
+        } else if (L2 == 0) {
+            return odd ? nums1[half] : (nums1[half] + nums1[half - 1]) / 2.0;
+        }
+        
         int s = -1;
         int e = half;
         int leftMax = 0;
