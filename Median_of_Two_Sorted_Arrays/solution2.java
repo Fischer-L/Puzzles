@@ -4,18 +4,20 @@ class Solution {
         final int L2 = nums2 == null ? 0 : nums2.length;
         if (L1 == 0 && L2 == 0) return 0;
         
-        final boolean odd = (L1 + L2) % 2 == 1;
-        final int half = this.calMid(L1, L2);
+        final boolean even = (L1 + L2) % 2 == 0;
+        final int half = (L1 + L2) / 2;
         int s = -1;
         int e = half;
+        int leftMax = 0;
+        int rightMin = 0;
         Double med = null;
         int[] left = new int[2];
         int[] right = new int[2];
         int[] longer = L1 >= L2 ? nums1 : nums2;
         int[] shorter = L1 >= L2 ? nums2 : nums1;
         
-        while (med == null) {
-            left[0] = this.calMid(s, e);
+        while (s <= e) {
+            left[0] = (s + e) / 2;
             left[1] = Math.max(half - left[0] - 2, -1);
             if (left[1] >= shorter.length) {
                 s = left[0] + 1;
@@ -24,13 +26,70 @@ class Solution {
             
             right[0] = left[0] + 1;
             right[1] = left[1] + 1;
-            if (odd) {
+            if (even) {
+                if (left[0] < 0) {
+                    leftMax = shorter[left[1]];    
+                } else if (left[1] < 0) {
+                    leftMax = longer[left[0]]; 
+                } else {
+                    leftMax = Math.max(longer[left[0]], shorter[left[1]]);
+                }
                 
+                if (right[0] >= longer.length) {
+                    rightMin = shorter[right[1]];
+                } else if (right[1] >= shorter.length) {
+                    rightMin = longer[right[0]];
+                } else {
+                    rightMin = Math.min(longer[right[0]], shorter[right[1]]);
+                }
+                
+                med = (leftMax + rightMin) / 2.0;
+            } else {
+                if (right[0] >= longer.length) {
+                    med = (double) shorter[right[1]];
+                    right[1]++;
+                } else if (right[1] >= shorter.length) {
+                    med = (double) longer[right[0]];
+                    right[0]++;
+                } else {
+                    if (longer[right[0]] > shorter[right[1]]) {
+                        med = (double) shorter[right[1]];
+                        right[1]++;
+                    } else {
+                        med = (double) longer[right[0]];
+                        right[0]++;
+                    }
+                }
+                
+                if (left[0] < 0) {
+                    leftMax = shorter[left[1]];    
+                } else if (left[1] < 0) {
+                    leftMax = longer[left[0]]; 
+                } else {
+                    leftMax = Math.max(longer[left[0]], shorter[left[1]]);
+                }
+                
+                if (right[0] >= longer.length) {
+                    rightMin = shorter[right[1]];
+                } else if (right[1] >= shorter.length) {
+                    rightMin = longer[right[0]];
+                } else {
+                    rightMin = Math.min(longer[right[0]], shorter[right[1]]);
+                }
+            }
+            
+            if (left[0] >= 0 && longer[left[0]] > rightMin) {
+                e = left[0] - 1;
+            } else if (left[1] >= 0 && shorter[left[1]] > rightMin) {
+                s = left[0] + 1;
+            } else if (right[0] < longer.length && longer[right[0]] < leftMax) {
+                s = left[0] + 1;
+            } else if (right[1] < shorter.length && shorter[right[1]] < leftMax) {
+                e = left[0] - 1;
+            } else {
+                s = e + 1;
             }
         }
-    }
-    
-    private int calMid(int a, int b) {
-        return (int) Math.floor((a + b) / 2);
+        return med;
     }
 }
