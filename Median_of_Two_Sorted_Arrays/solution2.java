@@ -4,7 +4,7 @@ class Solution {
         final int L2 = nums2 == null ? 0 : nums2.length;
         if (L1 == 0 && L2 == 0) return 0;
         
-        final boolean even = (L1 + L2) % 2 == 0;
+        final boolean odd = (L1 + L2) % 2 == 1;
         final int half = (L1 + L2) / 2;
         int s = -1;
         int e = half;
@@ -26,25 +26,7 @@ class Solution {
             
             right[0] = left[0] + 1;
             right[1] = left[1] + 1;
-            if (even) {
-                if (left[0] < 0) {
-                    leftMax = shorter[left[1]];    
-                } else if (left[1] < 0) {
-                    leftMax = longer[left[0]]; 
-                } else {
-                    leftMax = Math.max(longer[left[0]], shorter[left[1]]);
-                }
-                
-                if (right[0] >= longer.length) {
-                    rightMin = shorter[right[1]];
-                } else if (right[1] >= shorter.length) {
-                    rightMin = longer[right[0]];
-                } else {
-                    rightMin = Math.min(longer[right[0]], shorter[right[1]]);
-                }
-                
-                med = (leftMax + rightMin) / 2.0;
-            } else {
+            if (odd) {
                 if (right[0] >= longer.length) {
                     med = (double) shorter[right[1]];
                     right[1]++;
@@ -60,23 +42,25 @@ class Solution {
                         right[0]++;
                     }
                 }
-                
-                if (left[0] < 0) {
-                    leftMax = shorter[left[1]];    
-                } else if (left[1] < 0) {
-                    leftMax = longer[left[0]]; 
-                } else {
-                    leftMax = Math.max(longer[left[0]], shorter[left[1]]);
-                }
-                
-                if (right[0] >= longer.length) {
-                    rightMin = shorter[right[1]];
-                } else if (right[1] >= shorter.length) {
-                    rightMin = longer[right[0]];
-                } else {
-                    rightMin = Math.min(longer[right[0]], shorter[right[1]]);
-                }
             }
+            
+            if (left[0] < 0) {
+                leftMax = shorter[left[1]];    
+            } else if (left[1] < 0) {
+                leftMax = longer[left[0]]; 
+            } else {
+                leftMax = Math.max(longer[left[0]], shorter[left[1]]);
+            }
+            
+            if (right[0] >= longer.length) {
+                rightMin = shorter[right[1]];
+            } else if (right[1] >= shorter.length) {
+                rightMin = longer[right[0]];
+            } else {
+                rightMin = Math.min(longer[right[0]], shorter[right[1]]);
+            }
+            
+            if (!odd) med = (leftMax + rightMin) / 2.0;
             
             if (left[0] >= 0 && longer[left[0]] > rightMin) {
                 e = left[0] - 1;
