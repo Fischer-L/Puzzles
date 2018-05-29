@@ -12,13 +12,9 @@ class Solution {
             }
         }
         
-        int missing = 0;
         for (int i = 0; i < L; ++i) {
-            if (nums[i] != Integer.MIN_VALUE) {
-                missing = i + 1;
-                break;
-            }
+            if (nums[i] != Integer.MIN_VALUE) return i + 1;
         }
-        return missing > 0 ? missing : L + 1; 
+        return L + 1; 
     }
 }
