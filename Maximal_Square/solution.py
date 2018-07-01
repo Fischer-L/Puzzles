@@ -8,13 +8,12 @@ class Solution:
         
         MAX_ROW, MAX_COL = len(matrix), len(matrix[0])
         MAX = max(MAX_ROW, MAX_COL)
-        MAX = MAX * MAX
-        area  = 0
+        length  = 0
         for r in range(MAX_ROW):
             for c in range(MAX_COL):
-                area = max(area, self._calMAX(matrix, r, c, MAX_ROW, MAX_COL))
-                if area == MAX: return area
-        return area
+                length = max(length, self._calMAX(matrix, r, c, MAX_ROW, MAX_COL))
+                if length == MAX: return length * length
+        return length * length
     
     def _calMAX(self, matrix, sRow, sCol, MAX_ROW, MAX_COL):
         eRow = sRow
@@ -34,6 +33,6 @@ class Solution:
             
             eRow += 1
             eCol += 1
-        return (eRow - sRow) * (eCol - sCol)
+        return eRow - sRow
                 
                 
