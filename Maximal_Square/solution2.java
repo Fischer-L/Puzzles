@@ -19,6 +19,7 @@ class Solution {
                 left = nextDP[col] = current;
                 maxLen = Math.max(maxLen, current);
             }
+            left = 0;
             int[] tmp = dp;
             dp = nextDP;
             nextDP = tmp;
