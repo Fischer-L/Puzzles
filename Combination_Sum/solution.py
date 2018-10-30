@@ -27,4 +27,6 @@ class Solution:
             if subCombo: 
                 for j in range(len(subCombo)):
                     combo.append(prefix + subCombo[j])
+            else:
+                break
         return combo if combo else None
