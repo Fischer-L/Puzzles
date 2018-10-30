@@ -4,9 +4,9 @@
  * @return {number[][]}
  */
 var combinationSum = function(candidates, target) {
-  const L = candidates.length;
   const ans = [];
-  candidates.sort();
+  const L = candidates.length;
+  candidates.sort((a, b) => a - b);
   for (let i = 0; i < L; i++) {
     let combo = sumCombo(candidates, i, L, target);
     if (combo) ans.push(...combo);
