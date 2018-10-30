@@ -10,7 +10,7 @@ class Solution:
         L = len(candidates)
         for i in range(L):
             combo = self._sumCombo(candidates, i, L, target)
-            if combo: ans.append(combo)
+            if combo: ans += combo
         return ans
         
     def _sumCombo(self, candidates, s, e, target):
