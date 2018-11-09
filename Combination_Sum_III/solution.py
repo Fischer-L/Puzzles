@@ -1,13 +1,14 @@
 class Solution:
   def combinationSum3(self, k, n):
     """
-    :type candidates: List[int]
-    :type target: int
+    :type k: int
+    :type n: int
     :rtype: List[List[int]]
     """
     ans = []
-    candidates = self._createCandidates(n)
-    self._findCombos(k, n, candidates, 0, len(candidates), ans, [])
+    if n >= k * (k + 1) / 2:
+      candidates = self._createCandidates(n)
+      self._findCombos(k, n, candidates, 0, len(candidates), ans, [])
     return ans
   
   def _createCandidates(self, n):
