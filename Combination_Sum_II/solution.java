@@ -10,7 +10,7 @@ class Solution {
     if (target < 0) return;
     
     if (target == 0) {
-      ans.add(combo.clone());
+      ans.add((ArrayList) combo.clone());
       return;
     }
     
@@ -24,7 +24,7 @@ class Solution {
       }
       
       combo.add(v);
-      this.findCombinationa(target - v, candidate, i + 1, e, ans, combo);
+      this.findCombinationa(target - v, candidates, i + 1, e, ans, combo);
       combo.remove(combo.size()-1);
     }
   }
