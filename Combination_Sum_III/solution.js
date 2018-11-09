@@ -5,8 +5,10 @@
  */
 var combinationSum3 = function(k, n) {
   const ans = [];
-  const candidates = createCandidates(n);
-  findCombos(k, n, candidates, 0, candidates.length, ans, []);
+  if (n >= k * (k + 1) / 2) {
+    const candidates = createCandidates(n);
+    findCombos(k, n, candidates, 0, candidates.length, ans, []);
+  }
   return ans;
 };
 
