@@ -1,8 +1,10 @@
 class Solution {
   public List<List<Integer>> combinationSum3(int k, int n) {
     ArrayList<List<Integer>> ans = new ArrayList<>();
-    List candidates = this.createCandidates(n);
-    this.findCombinationa(k, n, candidates, 0, candidates.size(), ans, new ArrayList<Integer>());
+    if (n >=  k * (k + 1) / 2) {
+      List candidates = this.createCandidates(n);
+      this.findCombinationa(k, n, candidates, 0, candidates.size(), ans, new ArrayList<Integer>());
+    }
     return ans;
   }
   
