@@ -1,14 +1,14 @@
 class Solution {
   public List<List<Integer>> combinationSum3(int k, int n) {
     ArrayList<List<Integer>> ans = new ArrayList<>();
-    ArrayList candidates = this.createCandidates(n);
+    List candidates = this.createCandidates(n);
     this.findCombinationa(k, n, candidates, 0, candidates.size(), ans, new ArrayList<Integer>());
     return ans;
   }
   
   private List<Integer> createCandidates(int n) {
     ArrayList<Integer> candidates = new ArrayList<>();
-    for (int i = 1; i < 10 && i <= n; i++) candidates.push(i);
+    for (int i = 1; i < 10 && i <= n; i++) candidates.add(i);
     return candidates;
   }
   
