@@ -19,18 +19,13 @@ class Solution {
       }
       return;
     }
+    k--;
     
     for (int i = s; i < e; i++) {
       int v = candidates.get(i);
-      
       if (v > target) break;
-      
-      if (i != s && v == candidates.get(i-1)) {
-      	continue;
-      }
-      
       combo.add(v);
-      this.findCombinationa(k-1, target-v, candidates, i + 1, e, ans, combo);
+      this.findCombinationa(k, target-v, candidates, i+1, e, ans, combo);
       combo.remove(combo.size()-1);
     }
   }
