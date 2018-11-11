@@ -8,7 +8,7 @@ class Solution {
   private Integer[] numMap = null;
   
   private int calcPossibleNum(int[] nums, int target) {
-    if (target <= 0) return target == 0 ? 1 : 0;
+    if (target == 0) return 1;
     
     if (this.numMap[target] != null) return this.numMap[target];
     
