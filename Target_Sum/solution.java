@@ -2,8 +2,8 @@ class Solution {
   public int findTargetSumWays(int[] nums, int S) {
     Map<Integer, Integer> prevMap = new HashMap<>();
     Map<Integer, Integer> currMap = new HashMap<>();
-  	List<Integer> prevSums = new ArrayList<>();
-  	List<Integer> currSums = new ArrayList<>();
+    List<Integer> prevSums = new ArrayList<>();
+    List<Integer> currSums = new ArrayList<>();
     prevSums.add(0);
     prevMap.put(0, 1);
     for (int n : nums) {
