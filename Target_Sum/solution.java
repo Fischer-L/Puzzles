@@ -1,15 +1,34 @@
 class Solution {
   public int findTargetSumWays(int[] nums, int S) {
-  	ArrayList<Integer> sums = new ArrayList<>();
-    sums.add(0);
+    Map<Integer, Integer> prevMap = new HashMap<>();
+    Map<Integer, Integer> currMap = new HashMap<>();
+  	List<Integer> prevSums = new ArrayList<>();
+  	List<Integer> currSums = new ArrayList<>();
+    prevSums.add(0);
+    prevMap.put(0, 1);
     for (int n : nums) {
-      int end = sums.size();
+      currMap.clear();
+      currSums.clear();
+      int end = prevSums.size();
       for (int i = 0; i < end; i++) {
-        int v = sums.get(i);
-        sums.set(i, v + n);
-        sums.add(v - n);
-      } 
+        int s = prevSums.get(i);
+        int sCount = prevMap.get(s);
+        this.updateCurrent(s + n, sCount, currMap, currSums);
+        this.updateCurrent(s - n, sCount, currMap, currSums);
+      }
+      Map<Integer,Integer> bufMap = prevMap;
+      List<Integer> bufSums = prevSums;
+      prevMap = currMap;
+      prevSums = currSums;
+      currMap = bufMap;
+      currSums = bufSums;
     }
-    return (int) sums.stream().filter(v -> v == S).count();
+    return prevMap.getOrDefault(S, 0);
+  }
+  
+  private void updateCurrent(int v, int prevCount, Map<Integer, Integer> currMap, List<Integer> currSums) {
+  	int currCount = currMap.getOrDefault(v, 0);
+    if (currCount == 0) currSums.add(v);
+    currMap.put(v, currCount + prevCount);
   }
 }
