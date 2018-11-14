@@ -27,7 +27,7 @@ class Solution {
   }
   
   private void updateCurrent(int v, int prevCount, Map<Integer, Integer> currMap, List<Integer> currSums) {
-  	int currCount = currMap.getOrDefault(v, 0);
+    int currCount = currMap.getOrDefault(v, 0);
     if (currCount == 0) currSums.add(v);
     currMap.put(v, currCount + prevCount);
   }
