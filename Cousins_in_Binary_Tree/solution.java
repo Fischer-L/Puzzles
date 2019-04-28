@@ -14,7 +14,7 @@ class Solution {
   int yDepth = Integer.MAX_VALUE;
   
   public boolean isCousins(TreeNode root, int x, int y) {
-    this.bfs(null, root, x, y, 0);
+    this.preorder(null, root, x, y, 0);
     if (xDepth == yDepth && xDepth != Integer.MAX_VALUE) {
       if (xParent != yParent) return true;
       if (xParent == yParent && xParent == null) return true;
@@ -22,7 +22,7 @@ class Solution {
     return false;
   }
   
-  private void bfs(TreeNode parent, TreeNode node, int x, int y, int depth) {
+  private void preorder(TreeNode parent, TreeNode node, int x, int y, int depth) {
     if (node == null) return;
     
     if (xDepth != Integer.MAX_VALUE && yDepth != Integer.MAX_VALUE) return;
