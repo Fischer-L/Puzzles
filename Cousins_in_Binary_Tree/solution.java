@@ -15,11 +15,8 @@ class Solution {
   
   public boolean isCousins(TreeNode root, int x, int y) {
     this.preorder(null, root, x, y, 0);
-    if (xDepth == yDepth && xDepth != Integer.MAX_VALUE) {
-      if (xParent != yParent) return true;
-      if (xParent == yParent && xParent == null) return true;
-    }
-    return false;
+    if (root != null && root.val == x && x == y) return true;
+    return xDepth == yDepth && xParent != yParent;
   }
   
   private void preorder(TreeNode parent, TreeNode node, int x, int y, int depth) {
