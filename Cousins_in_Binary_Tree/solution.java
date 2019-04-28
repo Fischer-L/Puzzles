@@ -38,7 +38,7 @@ class Solution {
       yDepth = depth;
       yParent = parent;
     }
-    bfs(node, node.left, x, y, depth);
-    bfs(node, node.right, x, y, depth);
+    preorder(node, node.left, x, y, depth);
+    preorder(node, node.right, x, y, depth);
   }
 }
