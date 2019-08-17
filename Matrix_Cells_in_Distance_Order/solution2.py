@@ -5,13 +5,11 @@ class Solution:
         for c in range(C):
           d = abs(r - r0) + abs(c - c0)
           if d not in distances: distances[d] = []
-          cells = distances[d]
-          cells.append([ r, c ])
+          distances[d].append([ r, c ])
       
       ans = []
       for d in range(R + C - 1):
         if d in distances:
-          cells = distances[d]
-          for cell in cells: ans.append(cell)
+          for cell in distances[d]: ans.append(cell)
       return ans
         
