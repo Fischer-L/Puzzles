@@ -10,17 +10,14 @@ var allCellsDistOrder = function(R, C, r0, c0) {
   for (let r = 0; r < R; r++) {
     for (let c = 0; c < C; c++) {
       let d = Math.abs(r - r0) + Math.abs(c - c0);
-      let cells = distances[d];
-      if (!cells) cells = distances[d] = [];
-      cells.push([r, c]);
+      if (!distances[d]) distances[d] = [];
+      distances[d].push([r, c]);
     }
   }
   
   let ans = [];
   for (let cells of distances) {
-    if (cells) {
-      for (let cell of cells) ans.push(cell);
-    }
+    if (cells) ans.push(...cells);
   }
   return ans;
 };
