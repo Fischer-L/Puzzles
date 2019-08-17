@@ -18,7 +18,7 @@ class Solution {
     final int MAX = distances.size();
     for (int d = 0; d < MAX; d++) {
       Deque<int[]> cells = distances.get(d);
-      for (int[] cell : cells) ans[i++] = cell;
+      if (cells != null) for (int[] cell : cells) ans[i++] = cell;
     }
     return ans;
   }
