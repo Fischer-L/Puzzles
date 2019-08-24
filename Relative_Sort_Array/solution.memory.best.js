@@ -35,6 +35,11 @@ function swap(i, j, arr) {
 function quickSort(s, e, arr, arr2Map) {
   if (s >= e) return;
   
+  if (s + 1 === e) {
+    if (compare(arr[s], arr[e], arr2Map) > 0) swap(s, e, arr);
+    return;
+  }
+  
   const p = Math.floor((s + e) / 2);
   const pv = arr[p];
   swap(p, e, arr);
