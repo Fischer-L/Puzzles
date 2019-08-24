@@ -58,6 +58,6 @@ function quickSort(s, e, arr, arr2Map) {
     }
   }
   swap(i, e, arr);
-  quickSort(0, i - 1, arr, arr2Map);
+  quickSort(s, i - 1, arr, arr2Map);
   quickSort(i + 1, e, arr, arr2Map);
 }
