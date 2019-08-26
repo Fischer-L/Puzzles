@@ -1,5 +1,5 @@
 class Solution {
-  int gcd(int[] nums) {
+  public int gcd(int[] nums) {
     final int L = nums.length;
     if (L == 2) return this._gcd(nums[0], nums[1]);
     
@@ -10,7 +10,7 @@ class Solution {
     return this._gcd(nums[L-1], mod);
   }
   
-  int _gcd(int a, int b) {
+  private int _gcd(int a, int b) {
     if (a == b) return a;
     if (a > b) return this._gcd(a - b, b);
     return this._gcd(a, b - a);
