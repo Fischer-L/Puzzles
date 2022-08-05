@@ -1,4 +1,8 @@
-function numberOfConnectedComponents (n, edges) {
+/**
+ * n {number}
+ * edges {number[][]}
+ */
+function countComponents (n, edges) {
   const uf = new UnionFind(n);
   edges.forEach((a, b) => uf.union(a, b));
   return uf.count;
