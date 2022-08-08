@@ -8,7 +8,9 @@ function numDistinctIslands (grid) {
   const distinctCoordinates = new Set();
   for (let m = 0; m < M; m++) {
     for (let n = 0; n < N; n++) {
-      distinctCoordinates.add(JSON.stringify(dfs(grid, m, n, M, N, m, n, [])));
+      const coordinates = [];
+      dfs(grid, m, n, M, N, m, n, coordinates);
+      distinctCoordinates.add(JSON.stringify(coordinates));
     }
   }
   return distinctCoordinates.size;
