@@ -10,10 +10,10 @@ function minMeetingRooms(meetings) {
       count++;
       begins.shift();
     } else if (e <= b) {
-      maxCount = Math.max(maxCount, count);
       count--;
       ends.shift();
     }
+    maxCount = Math.max(maxCount, count);
   }
   return maxCount;
 }
