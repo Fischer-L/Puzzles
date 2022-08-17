@@ -8,7 +8,7 @@ function getModifiedArray(length, updates) {
   });
   const results = [ diffs[0] ];
   for (let i = 1; i < length; i++) {
-    results.push(diffs[i-1] + diffs[i]);
+    results.push(results[i-1] + diffs[i]);
   }
   return results;
 }
