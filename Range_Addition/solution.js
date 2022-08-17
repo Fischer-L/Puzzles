@@ -1,6 +1,6 @@
 function getModifiedArray(length, updates) {
   const diffs = Array(length).fill(0);
-  updates.forEach((s, e, inc) => {
+  updates.forEach(([s, e, inc]) => {
     diffs[s] += inc;
     if (e + 1 < length) {
       diffs[e+1] -= inc;
