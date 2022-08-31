@@ -32,12 +32,13 @@ class MinHeap {
     while (i <= this.size - 1) {
       const left = this._leftIndex(i);
       const right = this._rightIndex(i);
-      if (left <= this.size && this._queue[i] > this._queue[left]) {
-        this._swap(i, left);
-        i = left;
-      } else if (right <= this.size && this._queue[i] > this._queue[right]) {
-        this._swap(i, right);
-        i = right;
+      let smallest = left;
+      if (smallest <= this.size && right <= this.size && this._queue[right] < this._queue[smallest]) {
+        smallest = right;
+      }
+      if (smallest <= this.size && this._queue[i] > this._queue[smallest]) {
+        this._swap(i, smallest);
+        i = smallest;
       } else {
         break;
       }
@@ -58,7 +59,7 @@ class MinHeap {
   poll () {
     const num = this.peek();
     if (num !== null) {
-      this.swap(1, this.size);
+      this._swap(1, this.size);
       this._queue.pop();
       this._sink(1);
     }
@@ -70,6 +71,6 @@ class MinHeap {
   }
   
   get size () {
-    this._queue.length - 1;
+    return this._queue.length - 1;
   }
 }
