@@ -12,19 +12,16 @@ function quickSort (nums, left, right) {
 }
 
 function partition (nums, left, right) {
-  const mid = Math.floor(left + (right - left) / 2);
-  swap(nums, mid, right);
-  
   const pValue = nums[right];
-  let i = left - 1;
+  let p = left;
   for (let j = left; j <= right - 1; j++) {
     if (nums[j] <= pValue) {
-      i++;
-      swap(nums, i, j);
+      swap(nums, p, j);
+      p++;
     }
   }
-  swap(nums, i + 1, right);
-  return i + 1;
+  swap(nums, p, right);
+  return p;
 }
 
 function swap (nums, i, j) {
