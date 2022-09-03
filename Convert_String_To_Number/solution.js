@@ -25,18 +25,18 @@ function convertStringToNumber (str) {
       }
       decimal = true;
       factor = 0.1;
-    }
-  } else {
-    const num = toNumber(c);
-    if (num < 0) {
-      break;
-    }
-    if (decimal) {
-      sum = sum + (num * factor);
-      factor *= 0.1;
     } else {
-      sum = sum * factor + num;
-      factor *= 10;
+      const num = toNumber(c);
+      if (num < 0) {
+        break;
+      }
+      if (decimal) {
+        sum = sum + (num * factor);
+        factor *= 0.1;
+      } else {
+        sum = sum * factor + num;
+        factor *= 10;
+      }
     }
   }
   
