@@ -3,15 +3,17 @@ function toNumber (char) {
   if (0 <= num && num <= 9) {
     return num;
   }
-  return -1;
+  return NaN;
 }
 
 function convertStringToNumber (str) {
   let sum = 0;
-  let factor = 1;
+  let factor = 10;
+  let decimalFactor = 0.1;
   let decimal = false;
   let negative = false;
   let start = 0;
+
   if (str[0] === '-') {
     negative = true;
     start++;
@@ -27,18 +29,16 @@ function convertStringToNumber (str) {
         break;
       }
       decimal = true;
-      factor = 0.1;
     } else {
       const num = toNumber(c);
-      if (num < 0) {
+      if (Number.isNaN(num)) {
         break;
       }
       if (decimal) {
-        sum = sum + (num * factor);
-        factor *= 0.1;
+        sum = sum + (num * decimalFactor);
+        decimalFactor *= 0.1;
       } else {
         sum = sum * factor + num;
-        factor *= 10;
       }
     }
   }
