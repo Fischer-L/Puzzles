@@ -11,15 +11,18 @@ function convertStringToNumber (str) {
   let factor = 1;
   let decimal = false;
   let negative = false;
+  let start = 0;
+  if (str[0] === '-') {
+    negative = true;
+    start++;
+  } else if (str[0] === '.') {
+    decimal = true;
+    start++;
+  }
 
-  for (let i = 0; i < str.length; i++) {
+  for (let i = start; i < str.length; i++) {
     const c = str[i];
-    if (c === '-') {
-      if (negative) {
-        break;
-      }
-      negative = true;
-    } else if (c === '.') {
+    if (c === '.') {
       if (decimal) {
         break;
       }
