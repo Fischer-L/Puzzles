@@ -1,4 +1,3 @@
-
 class TrieNode {
   constructor ({ char = '', word = '', isRoot = false, parent = null  } = {}) {
     this.char = char;
