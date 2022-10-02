@@ -11,12 +11,14 @@ class UnionFind {
       return;
     }
     
-     this._count--;
     if (rootA === a && rootB === b) {
+      this._count--;
       this._parent[b] = a;
     } else if (rootA === a) {
+      this._count--;
       this._parent[a] = rootB;
     } else if (rootB === b) {
+      this._count--;
       this._parent[b] = rootA;
     } else {
       this.union(rootA, rootB);
