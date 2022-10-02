@@ -8,7 +8,7 @@ class UnionFind {
   connected (a, b)
   
   // Return the root of a
-  find (a)
+  root (a)
   
   // Return the count of connected union sets
   get count ()
