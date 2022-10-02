@@ -5,8 +5,8 @@ class UnionFind {
   }
 
   union (a, b) {
-    const rootA = this.root(a);
-    const rootB = this.root(b);
+    const rootA = this.find(a);
+    const rootB = this.find(b);
     if (rootA !== rootB) {
       this._parent[b] = rootA;
       count--;
@@ -14,10 +14,10 @@ class UnionFind {
   }
 
   connected (a, b) {
-    return this.root(a) === this.root(b);
+    return this.find(a) === this.find(b);
   }
 
-  root (a) {
+  find (a) {
     while (this._parent[a] !== a) {
       this._parent[a] = this.find(this._parent[a]);
     }
