@@ -18,7 +18,7 @@ class UnionFind {
   }
 
   find (a) {
-    while (this._parent[a] !== a) {
+    if (this._parent[a] !== a) {
       this._parent[a] = this.find(this._parent[a]);
     }
     return this._parent[a];
