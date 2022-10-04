@@ -65,7 +65,7 @@ class LRUCache {
 
     if (count > this._capacity) {
       this._removeNode(this._tail.prev);
-      this._count--;
+      count--;
     }
     this._updateLatestNode(node);
     this._count = count;
