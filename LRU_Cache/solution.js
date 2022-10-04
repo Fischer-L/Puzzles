@@ -1,87 +1,77 @@
-/**
- * @param {number} capacity
- */
-var LRUCache = function(capacity) {
-    this.capacity = capacity;
-    this.count = 0;
-    this.nodeMap = {};
-    this.head = this._mkNode(null, null);
-    this.tail = this._mkNode(null, null);
-    this.head.next = this.tail;
-    this.tail.prev = this.head;
-};
+class LRUCache {
+  constructor (capacity) {
+    this._capacity = capacity;
+    this._count = 0;
+    this._nodeMap = {};
+    this._head = this._makeNode(); // The most recent
+    this._tail = this._makeNode(); // The least recent
+    this._head.next = this._tail;
+    this._tail.prev = this._head;
+  }
 
-LRUCache.prototype._mkNode = function(key, value) {
+  _makeNode (key, value) {
     return {
-        key,
-        value,
-        prev: null,
-        next: null
+      key, 
+      value,
+      next: null,
+      prev: null,
     };
-}
+  }
 
-LRUCache.prototype._rmNode = function(node) {
-    node.prev.next = node.next;
-    node.next.prev = node.prev;
-    return node;
-}
+  _removeNode (node) {
+    if (!node || !this._nodeMap[node.key]) {
+      return;
+    }
+    const { prev, next } = node;
+    prev.next = next;
+    next.prev = prev;
+    node.prev = node.next = null;
+    delete this._nodeMap[node.key];
+  }
 
-LRUCache.prototype._pushNode = function (node) {
-    let oldLast = this.tail.prev;
-    oldLast.next = node;
-    node.prev = oldLast;
-    node.next = this.tail;
-    this.tail.prev = node;
-}
+  _updateLatestNode (node) {
+    if (!node) {
+      return;
+    }
+    this._removeNode(node);
+    const prev = this._head;
+    const next = this._head.next;
+    prev.next = node;
+    next.prev = node;
+    node.prev = prev;
+    node.next = next;
+    this._nodeMap[node.key] = node;
+  }
 
-LRUCache.prototype._unshiftNode = function (node) {
-    let oldFirst = this.head.next;
-    this.head.next = node;
-    node.prev = this.head;
-    node.next = oldFirst;
-    oldFirst.prev = node;
-}
-
-/** 
- * @param {number} key
- * @return {number}
- */
-LRUCache.prototype.get = function(key) {
-    let node = this.nodeMap[key];
-    if (!node) return -1;
-    
-    this._rmNode(node);
-    this._unshiftNode(node);
-    return node.value;
-};
-
-/** 
- * @param {number} key 
- * @param {number} value
- * @return {void}
- */
-LRUCache.prototype.put = function(key, value) {
-    let node = this.nodeMap[key];
+  get (key) {
+    const node = this._nodeMap[key];
     if (node) {
-        this._rmNode(node);
-        delete this.nodeMap[node.key];
-        --this.count;
+      this._updateLatestNode(node);
     }
-    node = this._mkNode(key, value);
-    this.nodeMap[key] = node;
-    if (this.count == this.capacity) {
-        let lru = this.tail.prev;
-        delete this.nodeMap[lru.key];
-        this._rmNode(lru);
-        --this.count;
-    }
-    this._unshiftNode(node);
-    ++this.count;
-};
+    return node ? node.value : null;
+  }
 
-/** 
- * Your LRUCache object will be instantiated and called as such:
- * var obj = Object.create(LRUCache).createNew(capacity)
- * var param_1 = obj.get(key)
- * obj.put(key,value)
- */
+  put (key, value) {
+    let node = null;
+    let count = this._count;
+
+    if (this._nodeMap[key]) {
+      node = this._nodeMap[key];
+      node.value = value;
+    } else {
+      node = this._makeNode(key, value);
+      count++;
+    }
+
+    if (count > this._capacity) {
+      this._removeNode(this._tail.prev);
+      this._count--;
+    }
+    this._updateLatestNode(node);
+    this._count = count;
+  }
+
+  get count () {
+    return this._count;
+  }
+}
