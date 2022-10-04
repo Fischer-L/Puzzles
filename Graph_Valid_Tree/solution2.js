@@ -1,7 +1,7 @@
 
 function validTree(n, edges) {
-	const graph = buildGraph(edges);
-	const visited = new Set();
+  const graph = buildGraph(edges);
+  const visited = new Set();
   traverse(graph, edges[0][0], edges[0][0], visited);
   return visited.size === n;
 }
