@@ -47,8 +47,9 @@ class LRUCache {
     const node = this._nodeMap[key];
     if (node) {
       this._updateLatestNode(node);
+      return node.value;
     }
-    return node ? node.value : null;
+    return null;
   }
 
   put (key, value) {
