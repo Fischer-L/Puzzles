@@ -29,7 +29,7 @@ function traverse (graph, here, from, visited) {
   
 	const neighbors = graph[here];
 	for (let i = 0; i < neighbors.length; i++) {
-		const to = neighbors[i];
+    const to = neighbors[i];
 		if (to !== from && !traverse(graph, to, here, visited)) {
 			return false;
 		}
