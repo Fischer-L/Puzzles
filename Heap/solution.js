@@ -76,6 +76,7 @@ class MinHeap extends HeapBase {
   }
 }
 
+
 class MaxHeap extends HeapBase {
   _swim (i) {
     while (i >= 2) {
@@ -95,7 +96,7 @@ class MaxHeap extends HeapBase {
       const r = this._right(i);
       let max = l ;
       if (max <= this.size && r <= this.size && this._q[r] > this._q[max]) {
-        max = right;
+        max = r;
       }
       if (max <= this.size && this._q[max] > this._q[i]) {
         this._swap(i, max);
