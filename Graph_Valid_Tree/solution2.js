@@ -7,32 +7,32 @@ function validTree(n, edges) {
 }
 
 function buildGraph (edges) {
-	const graph = {};
-	edges.forEach(([ a, b ]) => {
-		if (!graph[a]) {
-			graph[a] = [];
-		}
-		if (!graph[b]) {
-			graph[b] = [];
-		}
-		graph[a].push(b);
-		graph[b].push(a);
-	});
-	return graph;
+  const graph = {};
+  edges.forEach(([ a, b ]) => {
+    if (!graph[a]) {
+      graph[a] = [];
+    }
+    if (!graph[b]) {
+      graph[b] = [];
+    }
+    graph[a].push(b);
+    graph[b].push(a);
+  });
+  return graph;
 }
 
 function traverse (graph, here, from, visited) {
-	if (visited.has(here)) {
-		return false;
-	}
-	visited.add(here);
-  
-	const neighbors = graph[here];
-	for (let i = 0; i < neighbors.length; i++) {
+  if (visited.has(here)) {
+    return false;
+  }
+  visited.add(here);
+
+  const neighbors = graph[here];
+  for (let i = 0; i < neighbors.length; i++) {
     const to = neighbors[i];
-		if (to !== from && !traverse(graph, to, here, visited)) {
-			return false;
-		}
-	}
-	return true;
+    if (to !== from && !traverse(graph, to, here, visited)) {
+     return false;
+    }
+  }
+  return true;
 }
