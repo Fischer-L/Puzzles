@@ -7,11 +7,10 @@ class UnionFind {
   union (a, b) {
     const rootA = this.find(a);
     const rootB = this.find(b);
-    if (rootA === rootB) {
-      return;
+    if (rootA !== rootB) {
+      this._count--;
+      this._parent[rootB] = rootA;
     }
-    this._count--;
-    this._parent[rootB] = rootA;
   }
 
   connected (a, b) {
