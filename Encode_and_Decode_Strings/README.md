@@ -16,11 +16,11 @@ vector decode(string s) {
 ```
 So Machine 1 does:
 ```
-string encoded_string = encode(strs);
+string encoded_string = encode(strs); // Input strs = [ 'ABC', 'DEF', 'GHI' ]
 ```
 and Machine 2 does:
 ```
-vector strs2 = decode(encoded_string);
+vector strs2 = decode(encoded_string); // Output strs2 = [ 'ABC', 'DEF', 'GHI' ]
 ```
 strs2 in Machine 2 should be the same as strs in Machine 1.
 
