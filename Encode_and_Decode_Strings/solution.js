@@ -6,22 +6,17 @@ function decode (str) {
   const output = [];
   const N = str.length;
   let i = 0;
-  let s = '';
   let len = '';
   while (i < N) {
-    const c = str[i];
-    if (!s && c === '#') {
-      let count = parseInt(len);
-      len = '';
-      while (count > 0) {
-        i++;
-        count--;
-        s += str[i];
+    if (!len) {
+      while (str[i] !== '#') {
+       len += str[i++];
       }
-      output.push(s);
-      s = '';
     } else {
-      len += c;
+      const count = parseInt(len);
+      len = '';
+      output.push(str.substring(i, i + count));
+      i += count - 1;
     }
     i++;
   }
