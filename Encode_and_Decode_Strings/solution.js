@@ -8,17 +8,15 @@ function decode (str) {
   let i = 0;
   let len = '';
   while (i < N) {
-    if (!len) {
-      while (str[i] !== '#') {
-       len += str[i++];
-      }
-    } else {
-      const count = parseInt(len);
-      len = '';
-      output.push(str.substring(i, i + count));
-      i += count - 1;
+    while (str[i] !== '#') {
+     len += str[i++];
     }
     i++;
+    
+    const count = parseInt(len);
+    len = '';
+    output.push(str.substring(i, i + count));
+    i += count;
   }
   return output;
 }
