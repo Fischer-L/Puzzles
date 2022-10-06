@@ -10,19 +10,8 @@ class UnionFind {
     if (rootA === rootB) {
       return;
     }
-    
-    if (rootA === a && rootB === b) {
-      this._count--;
-      this._parent[b] = a;
-    } else if (rootA === a) {
-      this._count--;
-      this._parent[a] = rootB;
-    } else if (rootB === b) {
-      this._count--;
-      this._parent[b] = rootA;
-    } else {
-      this.union(rootA, rootB);
-    }
+    this._count--;
+    this._parent[rootB] = rootA;
   }
 
   connected (a, b) {
