@@ -1,17 +1,17 @@
 function minMeetingRooms(meetings) {
-  const begins = meetings.map(m => m[0]).sort((a, b) => a - b);
-  const ends = meetings.map(m => m[1]).sort((a, b) => a - b);
+  const begins = meetings.map(m => m[0]).sort((a, b) => b - a);
+  const ends = meetings.map(m => m[1]).sort((a, b) => b - a);
   let count = 0;
   let maxCount = 0;
   while (begins.length) {
-    const b = begins[0];
-    const e = ends[0];
+    const b = begins.pop()
+    const e = ends.pop();
     if (b < e) {
       count++;
-      begins.shift();
-    } else if (e <= b) {
+      ends.push(e); 
+    } else {
       count--;
-      ends.shift();
+      begins.push(b);
     }
     maxCount = Math.max(maxCount, count);
   }
