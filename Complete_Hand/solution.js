@@ -72,7 +72,7 @@ function isCompleteHand (card, sum, invalid) {
 }
 
 function isCompleteByRun (i, j, k, card, sum, invalid) {
-  if (0 <= i && j <= 9 && card[i] > 0 && card[j] > 0 && card[k] > 0) {
+  if (0 <= i && k <= 9 && card[i] > 0 && card[j] > 0 && card[k] > 0) {
     card[i]--;
     card[j]--;
     card[k]--;
