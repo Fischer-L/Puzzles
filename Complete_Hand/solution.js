@@ -82,7 +82,6 @@ function isCompleteByRun (i, j, k, card, sum, invalid) {
     card[i]++;
     card[j]++;
     card[k]++;
-
   }
   return false;
 }
