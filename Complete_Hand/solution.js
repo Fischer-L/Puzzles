@@ -1,4 +1,3 @@
-
 const hand1 = "11123";
 const hand2 = "12131";
 const hand3 = "11123455";
