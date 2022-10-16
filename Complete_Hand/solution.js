@@ -15,12 +15,11 @@ const hand14 = "99";
 const hand15 = "111223344";
 
 function advanced (hand) {
-  let sum = 0;
+  let sum = hand.length;
   const card = Array(10).fill(0);
-  for (let i = 0; i < hand.length; i++) {
+  for (let i = 0; i < sum; i++) {
     const v = parseInt(hand[i]);
     card[v]++;
-    sum++;
   }
 
   const invalid = {};
