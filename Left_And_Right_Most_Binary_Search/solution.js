@@ -19,14 +19,14 @@ function findLeftMost (nums, target) {
     const n = nums[mid];
     if (n < target) {
       left = mid + 1;
-    } else if (n > target) {
+    } else if (target < n) {
       right = mid - 1;
     } else {
       right = mid - 1;
     }
   }
 
-  return nums[left] === target ? left : -1;
+  return left < nums.length && nums[left] === target ? left : -1;
 }
 
 function findRightMost (nums, target) {
@@ -39,14 +39,14 @@ function findRightMost (nums, target) {
     const n = nums[mid];
     if (n < target) {
       left = mid + 1;
-    } else if (n > target) {
+    } else if (target < n) {
       right = mid - 1;
     } else {
       left = mid + 1;
     }
   }
 
-  return nums[right] === target ? right : -1;
+  return right >= 0 && nums[right] === target ? right : -1;
 }
 
 arr.forEach(([ nums, target ]) => {
