@@ -46,7 +46,7 @@ function findRightMost (nums, target) {
     }
   }
 
-  return nums[right] === target ? right : -1
+  return nums[right] === target ? right : -1;
 }
 
 arr.forEach(([ nums, target ]) => {
