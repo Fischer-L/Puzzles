@@ -1,6 +1,14 @@
 class HeapBase {
-  constructor () {
+  constructor (cmp) {
+    if (typeof cmp === 'function') {
+      this._cmp = cmp;
+    }
+    
     this._q = [ null ];
+  }
+  
+  _cmp (a, b) {
+    return a - b;
   }
 
   _parent (i) {
@@ -49,7 +57,7 @@ class MinHeap extends HeapBase {
   _swim (i) {
     while (i >= 2) {
       const p = this._parent(i);
-      if (this._q[i] < this._q[p]) {
+      if (this._cmp(this._q[i], this._q[p]) < 0) {
         this._swap(i, p);
         i = p;
       } else {
@@ -63,10 +71,10 @@ class MinHeap extends HeapBase {
       const l = this._left(i);
       const r = this._right(i);
       let min = l;
-      if (min <= this.size && r <= this.size && this._q[r] < this._q[min]) {
+      if (min <= this.size && r <= this.size && this._cmp(this._q[r], this._q[min]) < 0) {
         min = r;
       }
-      if (min <= this.size && this._q[min] < this._q[i]) {
+      if (min <= this.size && this._cmp(this._q[min], this._q[i]) < 0) {
         this._swap(i, min);
         i = min;
       } else {
@@ -81,7 +89,7 @@ class MaxHeap extends HeapBase {
   _swim (i) {
     while (i >= 2) {
       const p = this._parent(i);
-      if (this._q[i] > this._q[p]) {
+      if (this._cmp(this._q[i], this._q[p]) > 0) {
         this._swap(i, p);
         i = p;
       } else {
@@ -95,10 +103,10 @@ class MaxHeap extends HeapBase {
       const l = this._left(i);
       const r = this._right(i);
       let max = l ;
-      if (max <= this.size && r <= this.size && this._q[r] > this._q[max]) {
+      if (max <= this.size && r <= this.size && this._cmp(this._q[r], this._q[max]) > 0) {
         max = r;
       }
-      if (max <= this.size && this._q[max] > this._q[i]) {
+      if (max <= this.size && this._cmp(this._q[max], this._q[i]) > 0) {
         this._swap(i, max);
         i = max;
       } else {
