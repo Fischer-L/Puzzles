@@ -6,10 +6,6 @@ class HeapBase {
     
     this._q = [ null ];
   }
-  
-  _cmp (a, b) {
-    return a - b;
-  }
 
   _parent (i) {
     return Math.floor(i / 2);
@@ -27,6 +23,10 @@ class HeapBase {
     const tmp = this._q[i];
     this._q[i] = this._q[j];
     this._q[j] = tmp;
+  }
+  
+  _cmp (a, b) {
+    return a - b;
   }
 
   get size () {
