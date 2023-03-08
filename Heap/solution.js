@@ -33,7 +33,7 @@ class HeapBase {
     return this._q.length - 1;
   }
 
-  insert (v) {
+  push (v) {
     this._q.push(v);
     this._swim(this.size);
   }
