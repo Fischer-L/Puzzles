@@ -23,6 +23,9 @@ Output: 12
 Explanation: One shortest way is : left -> down -> left -> down -> right -> down -> right.
              The total distance is 1 + 1 + 3 + 1 + 2 + 2 + 2 = 12.
 ```
+![maze_2_example_1](https://github.com/user-attachments/assets/3861f8a4-a669-466e-9eb2-bf7a81471854)
+
+
 
 ### Example 2:
 ```
@@ -41,7 +44,8 @@ Output: -1
 
 Explanation: There is no way for the ball to stop at the destination.
 ```
- 
+ ![maze_2_example_2](https://github.com/user-attachments/assets/b46ce7db-dd1c-49c7-ba75-6c34a65e4739)
+
 
 Note:
 
