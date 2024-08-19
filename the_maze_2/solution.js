@@ -13,14 +13,15 @@ function solution (maze, start, destination) {
     return -1;
   }
   
-  const path = JSON.parse(JSON.stringify(maze));
+  const path = Array(ROW).fill(null);
   for (let r = 0; r < ROW; r++) {
+    path[r] = Array(COL).fill(null);
     for (let c = 0; c < COL; c++) {
       path[r][c] = maze[r][c] === 1 ? NaN : null;
     }
   }
-  path[start[0]][start[1]] = 0;
-  path[destination[0]][destination[1]] = 0;
+  path[start[0]][start[1]] = 1;
+  path[destination[0]][destination[1]] = -1;
 
   let starts = [ start ];
   let dests = [ destination ];
@@ -38,9 +39,9 @@ function solution (maze, start, destination) {
         }
         if (path[i][j] === null) {
           path[i][j] = steps;
-          nextStart.push([ i, j ]);
-        } else if (path[i][j] <= 0) {
-          return steps + Math.abs(path[i][j]);
+          nextStarts.push([ i, j ]);
+        } else if (path[i][j] < 0) {
+          return steps + Math.abs(path[i][j]) - 2;
         }
       }
     }
@@ -60,8 +61,8 @@ function solution (maze, start, destination) {
         if (path[i][j] === null) {
           path[i][j] = steps;
           nextDests.push([ i, j ]);
-        } else if (path[i][j] >= 0) {
-          return Math.abs(steps) + path[i][j];
+        } else if (path[i][j] > 0) {
+          return Math.abs(steps) + path[i][j] - 2;
         }
       }
     }
