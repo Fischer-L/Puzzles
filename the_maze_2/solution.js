@@ -32,8 +32,8 @@ function solution (maze, start, destination) {
       const steps = path[r][c] + 1;
       
       for (let a = 0; a < 4; a++) {
-        const i = r + dir[a][0];
-        const j = c + dir[a][1]; 
+        const i = r + DIRS[a][0];
+        const j = c + DIRS[a][1]; 
         if (wall(i, j)) {
           continue;
         }
@@ -53,8 +53,8 @@ function solution (maze, start, destination) {
       const steps = path[r][c] - 1;
 
       for (let a = 0; a < 4; a++) {
-        const i = r + dir[a][0];
-        const j = c + dir[a][1]; 
+        const i = r + DIRS[a][0];
+        const j = c + DIRS[a][1]; 
         if (wall(i, j)) {
           continue;
         }
