@@ -25,7 +25,7 @@ function solution (maze, start, destination) {
 
   let starts = [ start ];
   let dests = [ destination ];
-  while (starts.length && dest.length) {
+  while (starts.length && dests.length) {
     const nextStarts = [];
     while (starts.length) {
       const [ r, c ] = starts.pop();
@@ -70,5 +70,18 @@ function solution (maze, start, destination) {
   }
 
   return -1;
+}
+
+function test1 () {
+  const maze = [
+    [ 0, 0, 1, 0, 0, ],
+    [ 0, 0, 0, 0, 0, ],
+    [ 0, 0, 0, 1, 0, ],
+    [ 1, 1, 0, 1, 1, ],
+    [ 0, 0, 0, 0, 0, ],
+  ];
+  const start = [ 0, 4 ];
+  const destination = [ 4, 4 ];
+  console.log('Actual:', solution(maze, start, destination), 'Expected:', 12);
 }
 
