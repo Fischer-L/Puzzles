@@ -15,7 +15,7 @@ function solution (nums, x) {
     }
   }
 
-  for (let i = numFreq.length - 1; i >= 1; i++) {
+  for (let i = 1; i < numFreq.length; i++) {
     if (!numFreq[i]) {
       return i;
     }
