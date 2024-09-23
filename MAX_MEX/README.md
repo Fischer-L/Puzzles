@@ -21,6 +21,7 @@ input:
 arr = [1,1,1]
 x = 2
 
-output: 0
+output:
+2
 ```
 
