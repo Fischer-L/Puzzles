@@ -15,6 +15,7 @@ function solution (nums, x) {
     }
   }
 
+  // If the number 0 is counted as well, then starts at `i = 0`
   for (let i = 1; i < numFreq.length; i++) {
     if (!numFreq[i]) {
       return i;
