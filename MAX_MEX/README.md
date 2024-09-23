@@ -1,4 +1,4 @@
-Given an array N and an integer X with operation to add and substract X from any element in the array. 
+Given an array N and an integer X with operation to add and substract X from any element in the array any number of times. 
 Find the maximum possible MEX from the array with the any number of operation above!!
 
 
