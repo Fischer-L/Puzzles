@@ -32,6 +32,11 @@ final class Basic {
                 String c = Character.toString(str.charAt(i));
                 assertThat(c).isEqualTo(Integer.toString(i));
             }
+
+            for (int i = 0; i < str.length(); i++) {
+              String c = str.substring(i, i + 1);
+              assertThat(c).isEqualTo(Integer.toString(i));
+            }
         }
 
         @Test
