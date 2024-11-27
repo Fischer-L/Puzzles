@@ -63,20 +63,10 @@ class MyDoublyLinkedList {
   }
 }
 
-class MyPayloadList extends MyDoublyLinkedList {
+class MyListenerList extends MyDoublyLinkedList {
 
   constructor () {
     super();
-  }
-
-  add (args) {
-    super.add(new MyNode({ args }));
-  }
-}
-
-class MyListenerList {
-
-  constructor () {
     this._nodeSet = new Map();
     this._list = new MyDoublyLinkedList();
   }
@@ -88,21 +78,17 @@ class MyListenerList {
     return this._nodeSet.get(listener);
   }
 
-  get size () {
-    return this._list.size;
-  }
-
   add (listener, option) {
     const node = new MyNode({ listener, option });
     const nodes = this._getListenerNodes(listener);
     nodes.add(node);
-    this._list.add(node);
+    super.add(node);
   }
 
   remove (node) {
     const nodes = this._getListenerNodes(node.val.listener);
     nodes.delete(node);
-    this._list.remove(node);
+    super.remove(node);
   }
 
   removeAll (listener) {
@@ -111,28 +97,16 @@ class MyListenerList {
   }
 
   poll () {
-    const first = this._list.poll();
+    const first = super.poll();
     this.remove(first);
     return first;
-  }
-
-  toArray () {
-    return this._list.toArray();
   }
 }
 
 class MyEventEmitter {
 
   constructor () {
-    this._payloadsMap = new Map();
     this._listenersMap = new Map();
-  }
-
-  _getPayloadList (eventName) {
-    if (!this._payloadsMap.has(eventName)) {
-      this._payloadsMap.set(eventName, new MyPayloadList());
-    }
-    return this._payloadsMap.get(eventName);
   }
 
   _getListenerList (eventName) {
@@ -140,32 +114,6 @@ class MyEventEmitter {
       this._listenersMap.set(eventName, new MyListenerList());
     }
     return this._listenersMap.get(eventName);
-  }
-
-  _fire (eventName) {
-    const payloads = this._getPayloadList(eventName);
-    if (!payloads.size) {
-      return;
-    }
-    const args = payloads.poll().val.args;
-
-    const listeners = this._getListenerList(eventName);
-    if (!listeners.size) {
-      return;
-    }
-    const nodes = listeners.toArray();
-
-    for (let i = 0; i < nodes.length; i++) {
-      try {
-        const { listener, option } = nodes[i].val;
-        if (option?.once) {
-          listeners.remove(nodes[i]);
-        }
-        listener.apply(undefined, args);
-      } catch (e) {
-        console.error(e);
-      }
-    }
   }
 
   on (eventName, listener) {
@@ -187,8 +135,23 @@ class MyEventEmitter {
   }
 
   emit (eventName, ...args) {
-    this._getPayloadList(eventName).add(args);
-    this._fire(eventName);
+    const listeners = this._getListenerList(eventName);
+    if (!listeners.size) {
+      return;
+    }
+    const nodes = listeners.toArray();
+
+    for (let i = 0; i < nodes.length; i++) {
+      try {
+        const { listener, option } = nodes[i].val;
+        if (option?.once) {
+          listeners.remove(nodes[i]);
+        }
+        listener.apply(undefined, args);
+      } catch (e) {
+        console.error(e);
+      }
+    }
     return this;
   }
 }
