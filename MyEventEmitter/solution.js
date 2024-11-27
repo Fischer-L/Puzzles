@@ -22,7 +22,7 @@ class MyDoublyLinkedList {
   }
 
   add (node) {
-    if (this._nodes.has(node)) {
+    if (!node || this._nodes.has(node)) {
       return;
     }
     const prev = this._tail.prev;
@@ -34,7 +34,7 @@ class MyDoublyLinkedList {
   }
 
   remove (node) {
-    if (this._nodes.has(node)) {
+    if (node && this._nodes.has(node)) {
       const { prev, next } = node;
       prev.next = next;
       next.prev = prev;
@@ -86,9 +86,11 @@ class MyListenerList extends MyDoublyLinkedList {
   }
 
   remove (node) {
-    const nodes = this._getListenerNodes(node.val.listener);
-    nodes.delete(node);
-    super.remove(node);
+    if (node) {
+      const nodes = this._getListenerNodes(node.val.listener);
+      nodes.delete(node);
+      super.remove(node);
+    }
   }
 
   removeAll (listener) {
@@ -176,4 +178,4 @@ emitter.once('go', b);
 emitter.on('go', c);
 emitter.on('go', a);
 emitter.emit('go', 1);
-console.log('4');
+console.log('end:', '4');
