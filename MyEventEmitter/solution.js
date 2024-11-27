@@ -55,7 +55,7 @@ class MyDoublyLinkedList {
   toArray () {
     const arr = [];
     let node = this._head.next;
-    while (node.val !== this._tail.val) {
+    while (node !== this._tail) {
       arr.push(node);
       node = node.next;
     }
