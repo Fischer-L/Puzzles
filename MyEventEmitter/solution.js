@@ -68,7 +68,6 @@ class MyListenerList extends MyDoublyLinkedList {
   constructor () {
     super();
     this._nodeSet = new Map();
-    this._list = new MyDoublyLinkedList();
   }
 
   _getListenerNodes (listener) {
