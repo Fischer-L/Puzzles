@@ -8,8 +8,8 @@ function solution (root) {
     group.get(col).push(node);
   }
 
-  let min = Number.POSITIVE_INFINITY;
-  let max = Number.NEGATIVE_INFINITY;
+  let min = 0;
+  let max = 0;
   let parents = [{
     node: root, col: 0,
   }];
@@ -17,16 +17,17 @@ function solution (root) {
     const children = [];
     for (let i = 0; i < parents.length; i++) {
       const { node, col } = parents[i];
+      min = Math.min(min, col);
+      max = Math.max(max, col);
       addGroup(node, col);
 
       const { left, right } = node;
       if (left) {
         children.push({ node: left, col: col - 1 });
-        min = Math.min(min, col - 1);
       }
       if (right) {
         children.push({ node: right, col: col + 1 });
-        max = Math.max(max, col + 1);
+        
       }
     }
     parents = children;
