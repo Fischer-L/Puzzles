@@ -11,7 +11,7 @@ function floyd_marshall (graph) {
   for (let k = 0; k < V; k++) {
     for (let i = 0; i < V; i++) {
       for (let j = 0; j < V; j++) {
-        for (dist[i][k] !== INF && dist[k][j] !== INF) {
+        if (dist[i][k] !== INF && dist[k][j] !== INF) {
           dist[i][j] = Math.min(dist[i][j], dist[i][k] + dist[k][j]);
         }
       }
@@ -29,20 +29,20 @@ function floyd_marshall (graph) {
 
 
 const validGraph = [
-  [ INF, 2, INF, INF, 8 ],
-  [ 2, INF, 3, INF, 2 ],
-  [ INF, 3, INF, 1, INF ],
-  [ INF, INF, 1, INF, 1 ],
-  [ 8, 2, INF, 1, INF ]
+  [ 0, 2, INF, INF, 8 ],
+  [ 2, 0, 3, INF, 2 ],
+  [ INF, 3, 0, 1, INF ],
+  [ INF, INF, 1, 0, 1 ],
+  [ 8, 2, INF, 1, 0 ]
 ];
 const expectedResult = [
-  [ INF, 2, INF, INF, 8 ],
-  [ 2, INF, 3, INF, 2 ],
-  [ INF, 3, INF, 1, INF ],
-  [ INF, INF, 1, INF, 1 ],
-  [ 8, 2, INF, 1, INF ]
+  [ 0, 2, 5, 5, 4 ],
+  [ 2, 0, 3, 3, 2 ],
+  [ 5, 3, 0, 1, 2 ],
+  [ 5, 3, 1, 0, 1 ],
+  [ 4, 2, 2, 1, 0 ]
 ];
-if (JSON.stringify(floyd_marshall(validGraph)) === JSON.sringify(expectedResult)) {
+if (JSON.stringify(floyd_marshall(validGraph)) === JSON.stringify(expectedResult)) {
   console.log("Success on validGraph");
 } else {
   console.error("Error on validGraph");
