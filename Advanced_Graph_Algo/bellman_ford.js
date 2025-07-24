@@ -32,7 +32,13 @@ if (JSON.stringify(result) === JSON.stringify(expected)) {
   console.error("Error on bellman_ford");
 }
 
-
+const negativeEdges = [ [0,1,2],[0,4,8],[1,2,3],[1,4,2],[2,3,-1],[3,4,1] ];
+try {
+  bellman_ford(1, negativeEdges, 5);
+  console.log("Fail to find a negative cycle");
+} catch (e) {
+  console.log("Success: " + e);
+}
 
 
 
