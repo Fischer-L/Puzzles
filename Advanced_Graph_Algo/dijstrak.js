@@ -105,8 +105,8 @@ function dijstrak (root, edges, V) {
   }
 
   const graph = edges.reduce((_graph, [ a, b, weight ]) => {
-    _graph[a].push({ adj: b, wieght });
-    _graph[b].push({ adj: a, wieght });
+    _graph[a].push({ adj: b, weight });
+    _graph[b].push({ adj: a, weight });
     return _graph;
   }, Array.from(Array(V), () => []));
   const cost = Array(V).fill(INF);
@@ -119,7 +119,7 @@ function dijstrak (root, edges, V) {
 
   while (h.size) {
     const min = h.pop();
-    rgaph[min].forEach(({ adj, weight }) => {
+    graph[min].forEach(({ adj, weight }) => {
       cost[adj] = Math.min(cost[adj], cost[min] + weight);
       if (added[adj]) {
         h.refresh(adj);
@@ -134,7 +134,7 @@ function dijstrak (root, edges, V) {
 
 const edges = [ [0,1,2],[0,4,8],[1,2,3],[1,4,2],[2,3,1],[3,4,1] ];
 const expected = [ 2, 0, 3, 3, 2 ];
-const result = dijstrak(1, edges, 9);
+const result = dijstrak(1, edges, 5);
 if (JSON.stringify(result) === JSON.stringify(expected)) {
   console.log("Success on dijstrak");
 } else {
