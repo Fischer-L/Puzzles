@@ -16,7 +16,7 @@
   - Time complexity: O(V * E)
   - Space complexity: O(1) if compute on the current graph matrix
  
-## Dijistrak
+## Dijstrak
 - Purpose: Find the shortest distances from a given source to all other vertices
 - Limitation:
   - Negative edge weights: N
