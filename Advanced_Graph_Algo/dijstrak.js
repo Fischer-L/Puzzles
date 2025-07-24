@@ -90,7 +90,7 @@ class HeapBase {
 }
 
 // edges: [ [ a, b, weight ], .... ]
-function dijistrak (root, edges, V) {
+function dijstrak (root, edges, V) {
   class MinHeap extends HeapBase {
     constructor (cost) {
       super();
@@ -131,5 +131,17 @@ function dijistrak (root, edges, V) {
   }
   return cost;
 }
+
+const edges = [ [0,1,2],[0,4,8],[1,2,3],[1,4,2],[2,3,1],[3,4,1] ];
+const expected = [ 2, 0, 3, 3, 2 ];
+const result = dijstrak(1, edges, 9);
+if (JSON.stringify(result) === JSON.stringify(expected)) {
+  console.log("Success on dijstrak");
+} else {
+  console.error("Error on dijstrak");
+}
+
+
+
 
 
