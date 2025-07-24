@@ -27,7 +27,6 @@ function floyd_marshall (graph) {
   return dist;
 }
 
-
 const validGraph = [
   [ 0, 2, INF, INF, 8 ],
   [ 2, 0, 3, INF, 2 ],
@@ -48,6 +47,18 @@ if (JSON.stringify(floyd_marshall(validGraph)) === JSON.stringify(expectedResult
   console.error("Error on validGraph");
 }
 
-
+const negativeGaph = [
+  [ 0, 2, INF, INF, 8 ],
+  [ 2, 0, -3, INF, 2 ],
+  [ INF, -3, 0, 1, INF ],
+  [ INF, INF, 1, 0, 1 ],
+  [ 8, 2, INF, 1, 0 ]
+];
+try {
+  floyd_marshall(negativeGaph);
+  console.log("Faill to find a negative cycle");
+} catch (e) {
+  console.log("Success: " + e);
+}
 
 
