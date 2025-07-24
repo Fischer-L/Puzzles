@@ -26,3 +26,28 @@ function floyd_marshall (graph) {
   }
   return dist;
 }
+
+
+const validGraph = [
+  [ INF, 2, INF, INF, 8 ],
+  [ 2, INF, 3, INF, 2 ],
+  [ INF, 3, INF, 1, INF ],
+  [ INF, INF, 1, INF, 1 ],
+  [ 8, 2, INF, 1, INF ]
+];
+const expectedResult = [
+  [ INF, 2, INF, INF, 8 ],
+  [ 2, INF, 3, INF, 2 ],
+  [ INF, 3, INF, 1, INF ],
+  [ INF, INF, 1, INF, 1 ],
+  [ 8, 2, INF, 1, INF ]
+];
+if (JSON.stringify(floyd_marshall(validGraph)) === JSON.sringify(expectedResult)) {
+  console.log("Success on validGraph");
+} else {
+  console.error("Error on validGraph");
+}
+
+
+
+
