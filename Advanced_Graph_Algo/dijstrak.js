@@ -83,24 +83,15 @@ class HeapBase {
     }
     return i;
   }
-
-  refresh (i) {
-    this._swim(this._sink(i));
-  }
 }
 
 // edges: [ [ a, b, weight ], .... ]
 function dijstrak (root, edges, V) {
   class MinHeap extends HeapBase {
-    constructor (cost) {
-      super();
-      this._cost = cost;
-    } 
-
     _isPrior (i, j) {
-      const node1 = this._vals[i];
-      const node2 = this._vals[j];
-      return this._cost[node1] < this._cost[node2];
+      const a = this._vals[i].cost;
+      const b = this._vals[j].cost;
+      return a < b;
     }
   }
 
@@ -109,27 +100,32 @@ function dijstrak (root, edges, V) {
     _graph[b].push({ adj: a, weight });
     return _graph;
   }, Array.from(Array(V), () => []));
-  const cost = Array(V).fill(INF);
-  const added = Array(V).fill(false);
-  const h = new MinHeap(cost);
+  const costs = Array(V).fill(INF);
+  const relaxed = Array(V).fill(false);
+  const h = new MinHeap();
 
-  cost[root] = 0;
-  added[root] = true;
-  h.push(root);
+  costs[root] = 0;
+  h.push({ city: root, cost: 0 });
 
   while (h.size) {
-    const min = h.pop();
-    graph[min].forEach(({ adj, weight }) => {
-      cost[adj] = Math.min(cost[adj], cost[min] + weight);
-      if (added[adj]) {
-        h.refresh(adj);
-      } else {
-        h.push(adj);
-        added[adj] = true;
+    const { city: c } = h.pop();
+    if (relaxed[c]) {
+      continue;
+    }
+    relaxed[c] = true;
+    
+    graph[c].forEach(({ adj, weight }) => {
+      if (relaxed[adj]) {
+        return;
+      }
+      const cost2 = costs[c] + weight;
+      if (cost2 < costs[adj]) {
+        costs[adj] = cost2;
+        h.push({ city: adj, cost: cost2 });
       }
     });
   }
-  return cost;
+  return costs;
 }
 
 const edges = [ [0,1,2],[0,4,8],[1,2,3],[1,4,2],[2,3,1],[3,4,1] ];
