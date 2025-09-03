@@ -1,6 +1,6 @@
-Implement the class PrefixSumSegemntTree
+Implement the class PrefixSumSegmentTree
 ```js
-class PrefixSumSegemntTree {
+class PrefixSumSegmentTree {
 
   constructor (nums);
 
