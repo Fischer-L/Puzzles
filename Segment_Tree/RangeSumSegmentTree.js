@@ -3,8 +3,8 @@ class RangeSumSegmentTree {
   constructor (nums) {
     const N = nums.length;
     this._nums = nums.slice();
-    this._vals = Array(N * 2).fill(null);
-    _build (0, 0, N - 1);
+    this._vals = Array(N * 4).fill(0);
+    this._build (0, 0, N - 1);
   }
 
   _left (i) {
@@ -24,8 +24,14 @@ class RangeSumSegmentTree {
       this._vals[i] = this._nums[r];
       return this._vals[i];
     }
+
+    const a = this._left(i);
+    const b = this._right(i);
     const m = Math.floor((l + r) / 2);
-    this._vals[i] = this._build(this._left(i), l, m) + this._build(this._right(i), m + 1, r);
+    let sum = this._build(a, l, m) + this._build(b, m + 1, r);
+    this._vals[i] = sum;
+    return sum;
+    
   }
 
   // Return the sum between start(s) to end(e) (inclusive)
@@ -38,16 +44,20 @@ class RangeSumSegmentTree {
     if (e < l || s > r) {
       return 0;
     }
+
     if (s === l && r === e) {
       return this._vals[i];
     }
-    const m = Math.floor((s + e) / 2);
+
+    const a = this._left(i);
+    const b = this._right(i);
+    const m = Math.floor((l + r) / 2);
     if (e <= m) {
-      return this._query(this._left(i), l, m, s, e);
+      return this._query(a, l, m, s, e);
     } else if (s >= m + 1) {
-      return this._query(this._right(i), m + 1, r, s, e);
+      return this._query(b, m + 1, r, s, e);
     } else {
-      return this._query(this._left(i), l, m, s, m) + this._query(this._right(i), m + 1, r, m + 1, e);
+      return this._query(a, l, m, s, m) + this._query(b, m + 1, r, m + 1, e);
     }
   }
 
@@ -63,12 +73,16 @@ class RangeSumSegmentTree {
       return val;
     }
 
+    const a = this._left(i);
+    const b = this._right(i);
     const m = Math.floor((l + r) / 2);
+    let sum = 0;
     if (pos <= m) {
-       this._vals[i] = this._update(this._left(i), l, m, pos, val) + this._vals[this._right(i)];
+      sum = this._update(a, l, m, pos, val) + this._vals[b];
     } else {
-      this._vals[i] =  this._vals[this._left(i)] + this._update(this._right(i), m + 1, r, pos, val);
+      sum = this._vals[a] + this._update(b, m + 1, r, pos, val);
     }
-    return this._vals[i];
+    this._vals[i] = sum;
+    return sum;
   }
 }
